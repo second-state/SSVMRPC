@@ -1,5 +1,7 @@
 # SSVMRPC
 A Remote Procedure Call (RPC) implementation which facilitates both code-deployment and code-execution interactions with SecondState's stateless Virtual Machine (SSVM)
+
+## Design overview
 ![ssvmrpc diagram](https://github.com/second-state/SSVMRPC/blob/master/architecture.jpg)
 
 ## Data specification
