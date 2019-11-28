@@ -5,10 +5,8 @@ A Remote Procedure Call (RPC) implementation which facilitates both code-deploym
 ![ssvmrpc diagram](https://github.com/second-state/SSVMRPC/blob/master/architecture.jpg)
 
 ## Lifecycle event specification
-The [ssvmrpc_lifecycle_event_specification.md]() file provides a detailed specification for storing application state.
+The [ssvmrpc_application_state_specification.md](https://github.com/second-state/SSVMRPC/blob/master/ssvmrpc_application_state_specification.md) file provides a detailed specification for storing application state.
 
-## Data specification
-The [ssvmrpc_data_specification.md](https://github.com/second-state/SSVMRPC/blob/master/ssvmrpc_data_specification.md) file provides a detailed specification for data objects which will deploy and execute code (on the SSVM, over RPC).
+## Service specification
+The [ssvmrpc_service_specification.md](https://github.com/second-state/SSVMRPC/blob/master/ssvmrpc_service_specification.md) file provides a detailed specification for service objects (function to call, arguments to use etc).
 
-## Architecture
-The architectural design is still under design. 
