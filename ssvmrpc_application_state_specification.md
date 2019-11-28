@@ -4,17 +4,19 @@ This specification defines the storage of application state in leveldb. It envel
 
 ```
 {
-    service_name: "ERC 20", // User defined service name
+    "service_name": "ERC 20", // User defined service name
     "direction": "to_vm",
-    "timestamp": "TODO"
+    "timestamp": "TODO",
+    "ssvmrpc_service_specification":{}
 }
 ```
 
 
 ```
 {
-    service_name: "ERC 20", // User defined service name
+    "service_name": "ERC 20", // User defined service name
     "direction": "from_vm",
-    "timestamp": "TODO"
+    "timestamp": "TODO",
+    "ssvmrpc_service_specification":{}
 }
 ```
