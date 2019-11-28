@@ -1,0 +1,1 @@
+# SSVMRPC Lifecycle Event Specification
