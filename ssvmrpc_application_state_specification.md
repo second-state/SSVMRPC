@@ -4,16 +4,17 @@ This specification defines the storage of application state in leveldb. It envel
 
 ```
 {
-  service_name: "ERC 20", // User defined service name
-	"direction": "to_vm",
-	"timestamp": "TODO"
+    service_name: "ERC 20", // User defined service name
+    "direction": "to_vm",
+    "timestamp": "TODO"
 }
 ```
 
 
 ```
 {
-	"direction": "from_vm",
-	"timestamp": "TODO"
+    service_name: "ERC 20", // User defined service name
+    "direction": "from_vm",
+    "timestamp": "TODO"
 }
 ```
