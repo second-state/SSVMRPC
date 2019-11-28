@@ -1,6 +1,6 @@
-SSVM Data Specification
+# SSVM Service Specification
 
-## Calling data
+## To VM
 Calling data and return_data must be valid JSON (represent parsable objects)
 
 ### Deployment
@@ -99,7 +99,7 @@ ssvm execute --modules=core --service_name="Bank Service" --function_name="Add" 
 ```
 
 
-## Returned data
+## From VM
 Calling data and return_data must be valid JSON (represent parsable objects)
 
 ### Deployment
