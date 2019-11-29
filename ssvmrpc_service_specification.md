@@ -1,6 +1,6 @@
 # SSVM Service Specification
 
-## To VM
+## To Rust RPC
 Calling data and return_data must be valid JSON (represent parsable objects)
 
 ### Deployment
@@ -57,15 +57,24 @@ ssvm deploy --modules=core --service_name="Bank Service" --bytecode="0x..." --ar
 #### Execution of ethereum contract functions
 ```
 {
+    "service_uuid": "0x11111111",
     "service_name": "ERC20",
     "type": "execution",
     "modules": ["ethereum"],
     "execution":
     {
-        "uuid": "0x12345678",
+        "bytecode": "0x0", 
+        "execution_uuid": "0x12345678", // used for storing past stateless transactions
         "function_name": "Mint",
         "argument": ["0x1234", 1000],
         "ethereum": {
+            "abi": [{
+                "constant": true,
+                "inputs": [],
+                "name": "data",
+                "payable": false,
+                "type": "function"
+            }],
             "caller": "0x0",
             "call_value": "0x0"
         }
