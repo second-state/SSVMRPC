@@ -35,9 +35,12 @@ Add rocket dependency to Cargo.toml
 ```
 [dependencies]
 rocket = "0.4.2"
-serde = "1.0"
-serde_json = "1.0"
-serde_derive = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+
+[dependencies.rocket_contrib]
+version = "0.4.2"
+default-features = false
+features = ["json"]
 ```
 Create the SSVMRPC project
 ```
@@ -47,7 +50,37 @@ cd ssvmrpc
 ```
 Create/open the ~/ssvmrpc/src/main.rs file and fill with the following contents
 ```
-#TODO
+#![feature(proc_macro_hygiene, decl_macro)]
+  
+#[macro_use] extern crate rocket;
+
+use rocket::response::content;
+use rocket_contrib::json::Json;
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize)]
+struct PostData {
+    contents: String
+}
+
+#[post("/deploy", format = "json", data = "<json_data>")]
+fn deploy(json_data: Json<PostData>) -> content::Json<&'static str>{
+    content::Json("{'response':'success'}")
+}
+
+#[post("/destroy", format = "json", data = "<json_data>")]
+fn destroy(json_data: Json<PostData>) -> content::Json<&'static str>{
+    content::Json("{'response':'success'}")
+}
+
+#[post("/execute", format = "json", data = "<json_data>")]
+fn execute(json_data: Json<PostData>) -> content::Json<&'static str>{
+    content::Json("{'response':'success'}")
+}
+
+fn main() {
+    rocket::ignite().mount("/", routes![deploy, destroy, execute]).launch();
+}
 ```
 Build the ssvmrpc application
 ```
