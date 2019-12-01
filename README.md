@@ -35,3 +35,23 @@ Add rocket dependency to Cargo.toml
 [dependencies]
 rocket = "0.4.2"
 ```
+Create the SSVMRPC project
+```
+cd ~
+cargo new ssvmrpc
+cd ssvmrpc
+```
+Create/open the ~/ssvmrpc/src/main.rs file and fill with the following contents
+```
+#TODO
+```
+Build the ssvmrpc application
+```
+cd ~
+cd ssvmrpc
+cargo build --release
+```
+Start the ssvmrpc server
+```
+./target/release/ssvmrpc
+```
