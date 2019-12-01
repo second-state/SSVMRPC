@@ -6,13 +6,15 @@ This specification defines the storage of application state in leveldb. It envel
 {
 	"application_uuid": "0x11111111",
 	"application_name": "ERC 20",
+	"bytecode": "0x99999999",
 	"service": {
-		"as_at_timestamp": "TODO",
-		"ssvmrpc_service_specification": {}
-	},
-	"result": {
-		"as_at_timestamp": "TODO",
-		"ssvmrpc_service_specification": {}
+		"service_uuid": "0x11111111",
+		"service_name": "add",
+		"timestamp": {
+			"timestamp_uuid": "1575158141",
+			"input": {},
+			"output": {}
+		}
 	}
 }
 ```
