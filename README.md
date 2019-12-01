@@ -54,6 +54,8 @@ Create/open the ~/ssvmrpc/src/main.rs file and fill with the following contents
   
 #[macro_use] extern crate rocket;
 
+use rocket::Data;
+use serde_json::json;
 use rocket::response::content;
 use rocket_contrib::json::Json;
 use serde::{Serialize, Deserialize};
@@ -63,18 +65,18 @@ struct PostData {
     application: String
 }
 
-#[post("/deploy", format = "json", data = "<json_data>")]
-fn deploy(json_data: Json<PostData>) -> content::Json<&'static str>{
+#[post("/deploy", data = "<json_string>")]
+fn deploy(json_string: Data) -> content::Json<&'static str>{
     content::Json("{'response':'success'}")
 }
 
-#[post("/destroy", format = "json", data = "<json_data>")]
-fn destroy(json_data: Json<PostData>) -> content::Json<&'static str>{
+#[post("/destroy", data = "<json_string>")]
+fn destroy(json_string: Data) -> content::Json<&'static str>{
     content::Json("{'response':'success'}")
 }
 
-#[post("/execute", format = "json", data = "<json_data>")]
-fn execute(json_data: Json<PostData>) -> content::Json<&'static str>{
+#[post("/execute", data = "<json_string>")]
+fn execute(json_string: Data) -> content::Json<&'static str>{
     content::Json("{'response':'success'}")
 }
 
