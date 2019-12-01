@@ -60,7 +60,7 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
 struct PostData {
-    contents: String
+    application: String
 }
 
 #[post("/deploy", format = "json", data = "<json_data>")]
