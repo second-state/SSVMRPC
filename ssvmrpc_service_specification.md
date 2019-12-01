@@ -3,19 +3,23 @@
 ## To Rust RPC
 Calling data and return_data must be valid JSON (represent parsable objects)
 
-### Deployment
+### Execution
 
-#### Deploy ethereum contract
-```
+#### Execution of ethereum contract functions
+```json
 {
-    "service_name": "ERC20", // A string
-    "type": "deployment",              // Only accept "execution" and "deployment"
-    "modules": ["ethereum"],          // "ethereum" for enabling "EEI", "Core" for enabling "wasi_core"
-    "deployment":                     // Only valid when "type" is "deployment" 
+    // Debugging Info for Rust Container
+    "Service_Name": "ERC20",  // A string
+    "UUID": "0x12345678",  // 64 bits unsigned integer in hex string format
+    // Info for SSVM 
+    "Modules": ["Ethereum"],
+    "Execution":
     {
-        "bytecode": "0x0",            // Wasm format (encoded in hex string)
-        "argument": [10000, "ERC20"], // JSON Array for the constructor's arugments
-        "ethereum": {                 // Only valid when "modules" is "ethereum"
+        "Function_Name": "Mint",  // String format
+        "Argument": ["0x1234", "1000"],  // JSON Array for the function's arugments
+        "Ethereum": {
+            "Caller": "0x0",  // 20 bytes hex number in string format
+            "Call_Value": "0x0",  // 32 bytes hex number in string format
             "abi": [{                 // Smart contract ABI
                 "constant": true,
                 "inputs": [],
@@ -23,146 +27,87 @@ Calling data and return_data must be valid JSON (represent parsable objects)
                 "payable": false,
                 "type": "function"
             }],
-            "caller": "0x0",          // 20 bytes hex number in string format
-            "call_value": "0x0"        // 32 bytes hex number in string format
         }
+        "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
+                        "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},       // Key-value pairs in JSON Object
     }
 }
 ```
 
-```
-ssvm deploy --modules=ethereum --service_name="ERC20" --bytecode="0x0" --argument="[10000, "ERC20"]" --abi="[...]" --caller="0x0" --call_value="0x0"
-```
-
-#### Deploy non-blockchain Wasm i.e. Rust
-```
-{
-    "service_name": "Bank Service",
-    "type": "deployment",
-    "modules": "core",
-    "deployment":
-    {
-        "bytecode": "0x...",
-        "argument": [],
-    }
-}
+```shell
+$ SSVM --input_file=/home/johndoe/input.json --output_file=/home/johndoe/output.json --bytecode_file=/home/johndoe/bytecode.wasm
 ```
 
-```
-ssvm deploy --modules=core --service_name="Bank Service" --bytecode="0x..." --argument="[]"
-```
+SSVM has only three parameters:
+1. input_file: Put a input JSON file path from SSVMRPC here.
+2. output_file: Put a output JSON file path to SSVMRPC here.
+3. bytecode_file: Put a input JSON file path from SSVMRPC here.
 
-### Execution
-
-#### Execution of ethereum contract functions
-```
-{
-    "service_uuid": "0x11111111",
-    "service_name": "ERC20",
-    "type": "execution",
-    "modules": ["ethereum"],
-    "execution":
-    {
-        "bytecode": "0x0", 
-        "execution_uuid": "0x12345678", // used for storing past stateless transactions
-        "function_name": "Mint",
-        "argument": ["0x1234", 1000],
-        "ethereum": {
-            "abi": [{
-                "constant": true,
-                "inputs": [],
-                "name": "data",
-                "payable": false,
-                "type": "function"
-            }],
-            "caller": "0x0",
-            "call_value": "0x0"
-        }
-    }
-}
-```
-
-```
-ssvm execute --modules=ethereum --uuid="0x12345678" --service_name="ERC20" --function_name="Mint" --argument="["0x1234", 1000]" --caller="0x0" --call_value="0x0"
-```
 #### Execution of non-blockchain Wasm i.e. Rust
 
 The following data object provides the command line call with the appropriate arguments
 
-```
+```json
 {
-    "service_name": "Bank Service",
-    "type": "execution",
-    "modules": ["core"],
-    "execution":
+    // Debugging Info for Rust Container
+    "Service_Name": "ERC20",  // A string
+    "UUID": "0x12345678",  // 64 bits unsigned integer in hex string format
+    // Info for SSVM 
+    "Modules": ["Rust"],
+    "Execution":
     {
-        "uuid": "0x12345678",
-        "function_name": "Add",
-        "argument": [100, 200]
+        "Function_Name": "Mint",  // String format
+        "Argument": ["0x1234", "1000"],  // JSON Array for the function's arugments
+        
+        "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
+                        "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},       // Key-value pairs in JSON Object
     }
 }
 ```
-Example command line execution based on the above data object
-```
-ssvm execute --modules=core --service_name="Bank Service" --function_name="Add" --argument="[100, 200]" --bytecode="0x..." --argument="[]"
-```
 
+```shell
+$ SSVM --input_file=/home/johndoe/input.json --output_file=/home/johndoe/output.json --bytecode_file=/home/johndoe/bytecode.wasm
+```
+SSVM only has three parameters:
+1. input_file: Put a input JSON file path from SSVMRPC here.
+2. output_file: Put a output JSON file path to SSVMRPC here.
+3. bytecode_file: Put a input JSON file path from SSVMRPC here.
 
 ## From VM
 Calling data and return_data must be valid JSON (represent parsable objects)
 
-### Deployment
-
-#### Return object of ethereum smart contract deployment
-```
-{
-    "service_name": "ERC20",
-    "result":
-    {
-        "status": "Deployed",    // Can be "Deployed", "Failed"
-        "uuid": "0x12345678",    // 64 bits unsigned integer in hex string format
-        "error_message": "..."  // String
-    }
-}
-```
-
-#### Return object of non-blockchain i.e. Rust deployment
-```
-{
-    "service_name": "Bank Service",
-    "result":
-    {
-        "status": "Deployed",    // Can be "Deployed", "Failed"
-        "uuid": "0x12345678",    // 64 bits unsigned integer in hex string format
-        "error_message": "..."  // String
-    }
-}
-```
-
 ### Execution
 
 #### Return object of ethereum smart contract function execution
-```
+```json
 {
-    "service_name": "ERC20",
-    "result":
+    "Service Name": "ERC20",  // A string
+    "UUID": "0x12345678",  // 64 bits unsigned integer in hex string format
+
+    "Result":
     {
-        "status": "Successful",  // Can be "Deployed", "Successful", "Failed"
-        "return_data": [],       // JSON Array
-        "error_message": "..."  // String
+        "Status": "Successful",  // Can be "Successful", "Failed"
+        "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
+                        "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},    // Key-value pairs in JSON Object
+        "Return_Data": [],       // JSON Array
+        "Error_Message": "...",  // String
     }
 }
 ```
 
 #### Return object of non-blockchain i.e. Rust function execution
-```
+```json
 {
-    "service_name": "Bank Service",
-    "result":
+    "Service Name": "ERC20",  // A string
+    "UUID": "0x12345678",  // 64 bits unsigned integer in hex string format
+
+    "Result":
     {
-        "status": "Successful",  // Can be "Deployed", "Successful", "Failed"
-        "return_data": [300],    // JSON Array
-        "error_message": "..."  // String
+        "Status": "Successful",  // Can be "Successful", "Failed"
+        "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
+                        "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},    // Key-value pairs in JSON Object
+        "Return_Data": [],       // JSON Array
+        "Error_Message": "...",  // String
     }
 }
 ```
