@@ -6,12 +6,9 @@ Requests to deploy and/or execute code on the SSVM can be performed in a languag
 
 ```
 {
-	"request": {
-		"type": "deploy",
-		"application": {
-			"name": "My Application",
-			"bytecode": "0x0"
-		}
+	"application": {
+		"name": "My Application",
+		"bytecode": "0x0"
 	}
 }
 ```
