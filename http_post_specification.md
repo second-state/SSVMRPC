@@ -46,5 +46,27 @@ Requests to deploy and/or execute code on the SSVM can be performed in a languag
 ```
 
 
-## Execute service non-blockchain application
+## Execute a non-blockchain application's function as a service
 
+```
+{
+	"request": {
+		"type": "execute",
+		"application": {
+			"application_uuid": "0x1234"
+		},
+		"service": {
+			"name": "add",
+			"arguments": [100, 200],
+			"modules": ["core"]
+		}
+	}
+}
+```
+```
+{
+	"response": {
+		"status": "success"
+	}
+}
+```
