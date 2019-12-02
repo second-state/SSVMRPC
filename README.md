@@ -43,6 +43,7 @@ cd ~
 cargo new ssvmrpc
 cd ssvmrpc
 ```
+## Main code
 Create/open the ~/ssvmrpc/src/main.rs file and fill with the following contents
 ```
 #![feature(proc_macro_hygiene, decl_macro)]
@@ -89,6 +90,8 @@ fn main() {
     rocket::ignite().mount("/", routes![deploy, destroy, execute]).launch();
 }
 ```
+
+## Deployment
 Build the ssvmrpc application
 ```
 cd ~
@@ -99,14 +102,22 @@ Start the ssvmrpc server
 ```
 ./target/release/ssvmrpc
 ```
-Call using data
+
+## Usage
+Endpoints
+```
+http://ip_address:8000/deploy
+http://ip_address:8000/destroy
+http://ip_address:8000/execute
+```
+Example of passing in unknown arbritrary data i.e. calling execute with the following JSON string
 ```
 http://ip_address:8000/execute
 ```
 ```
 {"application":{"more_keys":"more_values"}, "asdf":"xyz"}
 ```
-Prints
+Results in
 ```
 Application: String("more_values")
 ```
