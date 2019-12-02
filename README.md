@@ -51,32 +51,42 @@ cd ssvmrpc
 Create/open the ~/ssvmrpc/src/main.rs file and fill with the following contents
 ```
 #![feature(proc_macro_hygiene, decl_macro)]
-  
+use std::str;
+use rocket::Data;
+use serde_json::{Value};
+use rocket::response::content;
 #[macro_use] extern crate rocket;
 
-use rocket::Data;
-use serde_json::json;
-use rocket::response::content;
-use rocket_contrib::json::Json;
-use serde::{Serialize, Deserialize};
 
-#[derive(Serialize, Deserialize)]
-struct PostData {
-    application: String
-}
-
-#[post("/deploy", data = "<json_string>")]
-fn deploy(json_string: Data) -> content::Json<&'static str>{
+#[post("/deploy", data = "<bytes_vec>")]
+fn deploy(bytes_vec: Data) -> content::Json<&'static str>{
+    if bytes_vec.peek_complete() {
+        let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
+        let v: Value = serde_json::from_str(string_text).unwrap();
+        println!("Application: {:?}", v["application"]);
+    }
     content::Json("{'response':'success'}")
 }
 
-#[post("/destroy", data = "<json_string>")]
-fn destroy(json_string: Data) -> content::Json<&'static str>{
+
+#[post("/destroy", data = "<bytes_vec>")]
+fn destroy(bytes_vec: Data) -> content::Json<&'static str>{
+    if bytes_vec.peek_complete() {
+        let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
+        let v: Value = serde_json::from_str(string_text).unwrap();
+        println!("Application: {:?}", v["application"]);
+    }
     content::Json("{'response':'success'}")
 }
 
-#[post("/execute", data = "<json_string>")]
-fn execute(json_string: Data) -> content::Json<&'static str>{
+
+#[post("/execute", data = "<bytes_vec>")]
+fn execute(bytes_vec: Data) -> content::Json<&'static str>{
+    if bytes_vec.peek_complete() {
+        let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
+        let v: Value = serde_json::from_str(string_text).unwrap();
+        println!("Application: {:?}", v["application"]);
+    }
     content::Json("{'response':'success'}")
 }
 
