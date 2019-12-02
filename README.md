@@ -110,7 +110,7 @@ http://ip_address:8000/deploy
 http://ip_address:8000/destroy
 http://ip_address:8000/execute
 ```
-Example of passing in unknown arbritrary data i.e. calling execute with the following JSON string
+Example of passing in unknown arbitrary data i.e. calling execute with the following JSON string
 ```
 http://ip_address:8000/execute
 ```
