@@ -121,4 +121,8 @@ Results in
 ```
 Application: String("more_values")
 ```
-Note the new `v["application"]["more_keys"]` notation which now allows us to look into internal objects even if we only know one path (not necessary to define all keys as Rust struct components). As you can see, the Rust application correctly sees this as a String. Also if we just ask for `v["application"]` we can see that Rust correctly sees this as an Object `Application: Object({"more_keys": String("more_values")})`. This is perfect.
+Note the new `v["application"]["more_keys"]` notation which now allows us to look into internal objects even if we only know one path (not necessary to define all keys as Rust struct components). As you can see, the Rust application correctly sees this as a String. Also if we just ask for `v["application"]` we can see that Rust correctly sees this as an Object 
+```
+Application: Object({"more_keys": String("more_values")})
+```
+This is perfect.
