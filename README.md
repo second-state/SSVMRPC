@@ -80,7 +80,7 @@ fn execute(bytes_vec: Data) -> content::Json<&'static str>{
     if bytes_vec.peek_complete() {
         let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
         let v: Value = serde_json::from_str(string_text).unwrap();
-        println!("Application: {:?}", v["application"]);
+        println!("Application: {:?}", v["application"]["more_keys"]);
     }
     content::Json("{'response':'success'}")
 }
@@ -99,3 +99,15 @@ Start the ssvmrpc server
 ```
 ./target/release/ssvmrpc
 ```
+Call using data
+```
+http://ip_address:8000/execute
+```
+```
+{"application":{"more_keys":"more_values"}, "asdf":"xyz"}
+```
+Prints
+```
+Application: String("more_values")
+```
+Note the new `v["application"]["more_keys"]` notation which now allows us to look into internal objects even if we only know one path (not necessary to define all keys as Rust struct components). As you can see, the Rust application correctly sees this as a String. Also if we just ask for `v["application"]` we can see that Rust correctly sees this as an Object `Application: Object({"more_keys": String("more_values")})`. This is perfect.
