@@ -35,12 +35,7 @@ Add rocket dependency to Cargo.toml
 ```
 [dependencies]
 rocket = "0.4.2"
-serde = { version = "1.0", features = ["derive"] }
-
-[dependencies.rocket_contrib]
-version = "0.4.2"
-default-features = false
-features = ["json"]
+serde_json = "1.0"
 ```
 Create the SSVMRPC project
 ```
