@@ -42,6 +42,7 @@ Add rocket dependency to Cargo.toml
 ```
 [dependencies]
 serde_json = "1.0"
+ssvm_container = "0.1.2"
 rocket = { git = "https://github.com/SergioBenitez/Rocket" }
 ```
 ## Main code
