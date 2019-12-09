@@ -40,8 +40,8 @@ rustup update && cargo update
 Add rocket dependency to Cargo.toml
 ```
 [dependencies]
-rocket = "0.4.2"
 serde_json = "1.0"
+rocket = { git = "https://github.com/SergioBenitez/Rocket" }
 ```
 ## Main code
 Create/open the ~/ssvmrpc/src/main.rs file and fill with the following contents
