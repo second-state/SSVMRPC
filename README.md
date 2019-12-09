@@ -26,6 +26,12 @@ Rust installation
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 ```
+Create the SSVMRPC project
+```
+cd ~
+cargo new ssvmrpc
+cd ssvmrpc
+```
 Rust configuration and housekeeping
 ```
 rustup override set nightly
@@ -36,12 +42,6 @@ Add rocket dependency to Cargo.toml
 [dependencies]
 rocket = "0.4.2"
 serde_json = "1.0"
-```
-Create the SSVMRPC project
-```
-cd ~
-cargo new ssvmrpc
-cd ssvmrpc
 ```
 ## Main code
 Create/open the ~/ssvmrpc/src/main.rs file and fill with the following contents
