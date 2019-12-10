@@ -49,15 +49,18 @@ rocket = { git = "https://github.com/SergioBenitez/Rocket" }
 Create/open the ~/ssvmrpc/src/main.rs file and fill with the following contents
 ```
 #![feature(proc_macro_hygiene, decl_macro)]
-use std::str;
-use rocket::Data;
-use serde_json::{Value};
 use rocket::response::content;
-#[macro_use] extern crate rocket;
+use rocket::Data;
+use serde_json::Value;
+use std::str;
+#[macro_use]
+extern crate rocket;
 
-
-#[post("/deploy", data = "<bytes_vec>")]
-fn deploy(bytes_vec: Data) -> content::Json<&'static str>{
+/// Ethereum WebAssembly (Ewasm)
+/// Deploy an Ewasm application (returns a uuid for future reference)
+/// http://ip_address:8000/deploy_ewasm_application
+#[post("/deploy_ewasm_application", data = "<bytes_vec>")]
+fn deploy_ewasm_application(bytes_vec: Data) -> content::Json<&'static str> {
     if bytes_vec.peek_complete() {
         let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
         let v: Value = serde_json::from_str(string_text).unwrap();
@@ -66,9 +69,11 @@ fn deploy(bytes_vec: Data) -> content::Json<&'static str>{
     content::Json("{'response':'success'}")
 }
 
-
-#[post("/destroy", data = "<bytes_vec>")]
-fn destroy(bytes_vec: Data) -> content::Json<&'static str>{
+/// Ethereum WebAssembly (Ewasm)
+/// Destroy a stored Ewasm application instance (returns the uuid of the destroyed application)
+/// http://ip_address:8000/destroy_ewasm_application
+#[post("/destroy_ewasm_application", data = "<bytes_vec>")]
+fn destroy_ewasm_application(bytes_vec: Data) -> content::Json<&'static str> {
     if bytes_vec.peek_complete() {
         let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
         let v: Value = serde_json::from_str(string_text).unwrap();
@@ -77,9 +82,50 @@ fn destroy(bytes_vec: Data) -> content::Json<&'static str>{
     content::Json("{'response':'success'}")
 }
 
+/// Ethereum WebAssembly (Ewasm)
+/// Execute an Ewasm application's function
+/// http://ip_address:8000/execute_ewasm_function
+#[post("/execute_ewasm_function", data = "<bytes_vec>")]
+fn execute_ewasm_function(bytes_vec: Data) -> content::Json<&'static str> {
+    if bytes_vec.peek_complete() {
+        let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
+        let v: Value = serde_json::from_str(string_text).unwrap();
+        println!("Application: {:?}", v["application"]["more_keys"]);
+    }
+    content::Json("{'response':'success'}")
+}
 
-#[post("/execute", data = "<bytes_vec>")]
-fn execute(bytes_vec: Data) -> content::Json<&'static str>{
+/// WebAssembly (Wasm)
+/// Deploy a Wasm application (returns a uuid for future reference)
+/// http://ip_address:8000/deploy_wasm_application
+#[post("/deploy_wasm_application", data = "<bytes_vec>")]
+fn deploy_wasm_application(bytes_vec: Data) -> content::Json<&'static str> {
+    if bytes_vec.peek_complete() {
+        let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
+        let v: Value = serde_json::from_str(string_text).unwrap();
+        println!("Application: {:?}", v["application"]);
+    }
+    content::Json("{'response':'success'}")
+}
+
+/// WebAssembly (Wasm)
+/// Destroy a Wasm application (returns the uuid of the destroyed application)
+/// http://ip_address:8000/destroy_wasm_application
+#[post("/destroy_wasm_application", data = "<bytes_vec>")]
+fn destroy_wasm_application(bytes_vec: Data) -> content::Json<&'static str> {
+    if bytes_vec.peek_complete() {
+        let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
+        let v: Value = serde_json::from_str(string_text).unwrap();
+        println!("Application: {:?}", v["application"]);
+    }
+    content::Json("{'response':'success'}")
+}
+
+/// WebAssembly (Wasm)
+/// Execute a Wasm application's function
+/// http://ip_address:8000/execute_wasm_function
+#[post("/execute_wasm_function", data = "<bytes_vec>")]
+fn execute_wasm_function(bytes_vec: Data) -> content::Json<&'static str> {
     if bytes_vec.peek_complete() {
         let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
         let v: Value = serde_json::from_str(string_text).unwrap();
@@ -89,7 +135,9 @@ fn execute(bytes_vec: Data) -> content::Json<&'static str>{
 }
 
 fn main() {
-    rocket::ignite().mount("/", routes![deploy, destroy, execute]).launch();
+    rocket::ignite()
+        .mount("/", routes![deploy, destroy, execute])
+        .launch();
 }
 ```
 
