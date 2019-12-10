@@ -7,7 +7,7 @@ Requests to deploy and/or execute code on the SSVM can be performed in a languag
 ```
 {
 	"application": {
-		"name": "My Application",
+		"storage": "file_system", // "file_system" or "leveldb"
 		"bytecode": "0x0"
 	}
 }
