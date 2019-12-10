@@ -88,3 +88,91 @@ http://ip_address:8000/execute_wasm_function
 	}
 }
 ```
+
+## Deploy an Ethereum flavoured WebAssembly(Ewasm) application instance
+
+```
+http://ip_address:8000/deploy_ewasm_application
+```
+
+```
+{
+	"request": {
+		"application": {
+			"storage": "file_system", // "file_system" or "leveldb"
+			"bytecode": "0x0"
+		}
+	}
+}
+```
+```
+{
+	"response": {
+		"status": "success",
+		"application": {
+			"uuid": "0x1234"
+		}
+	}
+}
+```
+## Destroy an Ethereum flavoured WebAssembly(Ewasm) application instance
+
+```
+http://ip_address:8000/destroy_ewasm_application
+```
+
+```
+{
+	"request": {
+		"application": {
+			"storage": "file_system", // "file_system" or "leveldb"
+			"uuid": "0x1234"
+		}
+	}
+}
+```
+```
+{
+	"response": {
+		"status": "success",
+		"application": {
+			"uuid": "0x1234"
+		}
+	}
+}
+```
+## Execute an Ethereum flavoured WebAssembly(Ewasm) application's function
+
+```
+http://ip_address:8000/execute_ewasm_function
+```
+
+```
+{
+	"request": {
+		"application": {
+			"storage": "file_system", // "file_system" or "leveldb"
+			"uuid": "0x1234"
+		},
+		"function": {
+			"name": "add", // function name as per wat file 
+			"arguments": [2, 2] // valid arguments of the function, in the correct order
+		},
+		"modules": ["ewasm"], // can be blank or list as many modules as required
+		"storage": {          // storage can be empty, i.e. "storage":{}, if this is the inaugural execution
+			"00000...00000": "00000...00064",
+			"f5b24...9cf10": "00000...00064"
+		}
+	}
+
+}
+```
+```
+{
+	"response": {
+		"status": "success",
+		"data": 4 // this can be any amount of valid JSON data
+	}
+}
+```
+
