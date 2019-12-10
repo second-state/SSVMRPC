@@ -7,6 +7,8 @@ You will notice that each action is split up into a separate endpoint. This is d
 - it allows the service to manage user subscriptions (credits, limits, throttling usage etc.) and/or monetization if required
 - it requires less data to be sent i.e. the endpoint describes the service so there is no need to add this to the JSON
 
+# Wasm (WebAsssembly)
+
 ## Deploy WebAssembly(Wasm) application instance
 
 ```
@@ -88,7 +90,7 @@ http://ip_address:8000/execute_wasm_function
 	}
 }
 ```
-
+# Ewasm (Ethereum WebAssembly)
 ## Deploy an Ethereum flavoured WebAssembly(Ewasm) application instance
 
 ```
