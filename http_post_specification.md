@@ -70,7 +70,8 @@ http://ip_address:8000/execute_wasm_function
 		"function": {
 			"name": "add", // function name as per wat
 			"arguments": [2, 2] // valid arguments of the function, in the correct order
-		}
+		},
+		"modules": ["wasi-core", "rust"] // can be blank or list as many modules as required
 	}
 }
 ```
