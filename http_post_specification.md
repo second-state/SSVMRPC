@@ -2,6 +2,11 @@
 
 Requests to deploy and/or execute code on the SSVM can be performed in a language agnostic way, via HTTP POST. For example a user, or an application, can construct a HTTP POST and send it to the [SSVMRPC](https://github.com/second-state/SSVMRPC) endpoint, to receive a response from the SSVM.
 
+You will notice that each action is split up into a separate endpoint. This is done for a few reasons:
+- it allows the software that receives the request to manage permissions/access control on a per-endpoint basis (as apposed to peeking into the incoming data to make these decisions. This is for both safety and flexibility)
+- it allows the service to manage user subscriptions (credits, limits, throttling usage etc.) and/or monetization if required
+- it requires less data to be sent i.e. the endpoint describes the service so there is no need to add this to the JSON
+
 ## Deploy WebAssembly(Wasm) application instance
 
 ```
@@ -68,7 +73,7 @@ http://ip_address:8000/execute_wasm_function
 			"uuid": "0x1234"
 		},
 		"function": {
-			"name": "add", // function name as per wat
+			"name": "add", // function name as per wat file 
 			"arguments": [2, 2] // valid arguments of the function, in the correct order
 		},
 		"modules": ["wasi-core", "rust"] // can be blank or list as many modules as required
