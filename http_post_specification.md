@@ -2,13 +2,19 @@
 
 Requests to deploy and/or execute code on the SSVM can be performed in a language agnostic way, via HTTP POST. For example a user, or an application, can construct a HTTP POST and send it to the [SSVMRPC](https://github.com/second-state/SSVMRPC) endpoint, to receive a response from the SSVM.
 
-## Deploy non-blockchain application instance
+## Deploy WebAssembly(Wasm) application instance
+
+```
+http://ip_address:8000/deploy_wasm_application
+```
 
 ```
 {
-	"application": {
-		"storage": "file_system", // "file_system" or "leveldb"
-		"bytecode": "0x0"
+	"request": {
+		"application": {
+			"storage": "file_system", // "file_system" or "leveldb"
+			"bytecode": "0x0"
+		}
 	}
 }
 ```
@@ -22,40 +28,48 @@ Requests to deploy and/or execute code on the SSVM can be performed in a languag
 	}
 }
 ```
-## Destroy non-blockchain application instance
+## Destroy WebAssembly(Wasm) application instance
+
+```
+http://ip_address:8000/destroy_wasm_application
+```
+
 ```
 {
 	"request": {
-		"type": "destroy",
+		"application": {
+			"storage": "file_system", // "file_system" or "leveldb"
+			"uuid": "0x1234"
+		}
+	}
+}
+```
+```
+{
+	"response": {
+		"status": "success",
 		"application": {
 			"uuid": "0x1234"
 		}
 	}
 }
 ```
+## Execute a WebAssembly(Wasm) application's function
 
 ```
-{
-	"response": {
-		"status": "success"
-	}
-}
+http://ip_address:8000/execute_wasm_function
 ```
-
-
-## Execute a non-blockchain application's function as a service
 
 ```
 {
 	"request": {
-		"type": "execute",
 		"application": {
-			"application_uuid": "0x1234"
+			"storage": "file_system", // "file_system" or "leveldb"
+			"uuid": "0x1234"
 		},
-		"service": {
-			"name": "add",
-			"arguments": [100, 200],
-			"modules": ["core"]
+		"function": {
+			"name": "add", // function name as per wat
+			"arguments": [2, 2] // valid arguments of the function, in the correct order
 		}
 	}
 }
@@ -63,7 +77,8 @@ Requests to deploy and/or execute code on the SSVM can be performed in a languag
 ```
 {
 	"response": {
-		"status": "success"
+		"status": "success",
+		"data": 4 // this can be any amount of valid JSON data
 	}
 }
 ```
