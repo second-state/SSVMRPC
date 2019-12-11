@@ -144,7 +144,7 @@ http://ip_address:8000/destroy_ewasm_application
 }
 ```
 ## Execute an Ethereum flavoured WebAssembly(Ewasm) application's function
-
+This call will execute a function of the application at `uuid` 0x1234. The state of the application at `uuid` 0x1234 will be updated based on this activity. If you want to just execute the function arbitrarily then please use the `execute_ewasm_function_adhoc` endpoint and pass in your own state.
 ```
 http://ip_address:8000/execute_ewasm_function
 ```
@@ -160,11 +160,7 @@ http://ip_address:8000/execute_ewasm_function
 			"name": "add", // function name as per wat file 
 			"arguments": [2, 2] // valid arguments of the function, in the correct order
 		},
-		"modules": ["ewasm"], // can be blank or list as many modules as required
-		"storage": {          // storage can be empty, i.e. "storage":{}, if this is the inaugural execution
-			"00000...00000": "00000...00064",
-			"f5b24...9cf10": "00000...00064"
-		}
+		"modules": ["ewasm"] // can be blank or list as many modules as required
 	}
 
 }
@@ -177,4 +173,43 @@ http://ip_address:8000/execute_ewasm_function
 	}
 }
 ```
+## Execute an Ethereum flavoured WebAssembly(Ewasm) application's function
+
+```
+http://ip_address:8000/execute_ewasm_function_adhoc
+```
+
+```
+{
+	"request": {
+		"application": {
+			"storage": "file_system", // "file_system" or "leveldb"
+			"uuid": "0x1234"
+		},
+		"function": {
+			"name": "add", // function name as per wat file 
+			"arguments": [2, 2] // valid arguments of the function, in the correct order
+		},
+		"modules": ["ewasm"], // can be blank or list as many modules as required
+		"storage": {          // calling code passed in the current state
+			"00000...00000": "00000...00064",
+			"f5b24...9cf10": "00000...00064"
+		}
+	}
+
+}
+```
+```
+{
+	"response": {
+		"status": "success",
+		"data": 4,
+		"storage": {          // returns the updated state which can be used to make another call
+			"00000...00000": "00000...00064",
+			"f5b24...9cf10": "00000...00064"
+		}
+	}
+}
+```
+
 
