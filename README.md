@@ -95,6 +95,19 @@ fn execute_ewasm_function(bytes_vec: Data) -> content::Json<&'static str> {
     content::Json("{'response':'success'}")
 }
 
+/// Ethereum WebAssembly (Ewasm)
+/// Execute an Ewasm application's function in an ad hoc fashion
+/// http://ip_address:8000/execute_ewasm_function_adhoc
+#[post("/execute_ewasm_function_adhoc", data = "<bytes_vec>")]
+fn execute_ewasm_function_adhoc(bytes_vec: Data) -> content::Json<&'static str> {
+    if bytes_vec.peek_complete() {
+        let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
+        let v: Value = serde_json::from_str(string_text).unwrap();
+        println!("Application: {:?}", v["application"]["more_keys"]);
+    }
+    content::Json("{'response':'success'}")
+}
+
 /// WebAssembly (Wasm)
 /// Deploy a Wasm application (returns a uuid for future reference)
 /// http://ip_address:8000/deploy_wasm_application
