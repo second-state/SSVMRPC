@@ -173,7 +173,8 @@ http://ip_address:8000/execute_ewasm_function
 	}
 }
 ```
-## Execute an Ethereum flavoured WebAssembly(Ewasm) application's function
+## Adhoc Ewasm execution
+Execute an Ethereum flavoured WebAssembly(Ewasm) application's function by passing in your own state.
 
 ```
 http://ip_address:8000/execute_ewasm_function_adhoc
