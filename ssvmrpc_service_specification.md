@@ -16,6 +16,7 @@ Calling data and return_data must be valid JSON (represent parsable objects)
     "Execution":
     {
         "Function_Name": "Mint",  // String format
+        "Gas": 123,  // Integer
         "Argument": ["0x1234", "1000"],  // JSON Array for the function's arugments
         "Ethereum": {
             "Caller": "0x0",  // 20 bytes hex number in string format
@@ -57,6 +58,7 @@ The following data object provides the command line call with the appropriate ar
     "Execution":
     {
         "Function_Name": "Mint",  // String format
+        "Gas":123, // Integer
         "Argument": ["0x1234", "1000"],  // JSON Array for the function's arugments
         
         "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
@@ -87,6 +89,8 @@ Calling data and return_data must be valid JSON (represent parsable objects)
     "Result":
     {
         "Status": "Successful",  // Can be "Successful", "Failed"
+        "Gas": 123, // Gas given by Input JSON, in Integer format
+        "UsedGas": 100, // Used gas by this transaction, in Integer format
         "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
                         "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},    // Key-value pairs in JSON Object
         "Return_Data": [],       // JSON Array
@@ -104,6 +108,8 @@ Calling data and return_data must be valid JSON (represent parsable objects)
     "Result":
     {
         "Status": "Successful",  // Can be "Successful", "Failed"
+        "Gas": 123, // Gas given by Input JSON, in Integer format
+        "UsedGas": 100, // Used gas by this transaction, in Integer format
         "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
                         "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},    // Key-value pairs in JSON Object
         "Return_Data": [],       // JSON Array
