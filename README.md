@@ -149,7 +149,7 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<&'static str> {
 
 fn main() {
     rocket::ignite()
-        .mount("/", routes![deploy, destroy, execute])
+        .mount("/", routes![deploy_ewasm_application, destroy_ewasm_application, execute_ewasm_function, execute_ewasm_function_adhoc, deploy_wasm_application, destroy_wasm_application, execute_wasm_function])
         .launch();
 }
 ```
