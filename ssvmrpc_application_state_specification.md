@@ -7,28 +7,28 @@ This ssvmrpc_state_specification, envelops the [ssvmrpc_service_specification]( 
 ```
 {
 	"applications": [{
-			"application_uuid": "0x11111111",
-			"application_name": "Application 1",
+			"uuid": "0x11111111",
+			"name": "Application 1",
 			"bytecode": "0x987654321",
 			"services": [{
-				"service_uuid": "0x48576757",
-				"service_name": "add",
+				"uuid": "0x48576757",
+				"name": "add",
 				"executions": [{
-					"timestamp_uuid": "1575158141",
+					"timestamp": "1575158141",
 					"input": {},
 					"output": {}
 				}]
 			}]
 		},
 		{
-			"application_uuid": "0x11111112",
-			"application_name": "Application 2",
+			"uuid": "0x11111112",
+			"name": "Application 2",
 			"bytecode": "0x123456789",
 			"services": [{
-				"service_uuid": "0x374657867",
-				"service_name": "add",
+				"uuid": "0x374657867",
+				"name": "add",
 				"executions": [{
-					"timestamp_uuid": "1575158144",
+					"timestamp": "1575158144",
 					"input": {},
 					"output": {}
 				}]
