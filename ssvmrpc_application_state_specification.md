@@ -6,17 +6,34 @@ This ssvmrpc_state_specification, envelops the [ssvmrpc_service_specification]( 
 
 ```
 {
-	"application_uuid": "0x11111111",
-	"application_name": "ERC 20",
-	"bytecode": "0x99999999",
-	"service": {
-		"service_uuid": "0x11111111",
-		"service_name": "add",
-		"timestamp": {
-			"timestamp_uuid": "1575158141",
-			"input": {},
-			"output": {}
+	"applications": [{
+			"application_uuid": "0x11111111",
+			"application_name": "Application 1",
+			"bytecode": "0x987654321",
+			"services": [{
+				"service_uuid": "0x48576757",
+				"service_name": "add",
+				"executions": [{
+					"timestamp_uuid": "1575158141",
+					"input": {},
+					"output": {}
+				}]
+			}]
+		},
+		{
+			"application_uuid": "0x11111112",
+			"application_name": "Application 2",
+			"bytecode": "0x123456789",
+			"services": [{
+				"service_uuid": "0x374657867",
+				"service_name": "add",
+				"executions": [{
+					"timestamp_uuid": "1575158144",
+					"input": {},
+					"output": {}
+				}]
+			}]
 		}
-	}
+	]
 }
 ```
