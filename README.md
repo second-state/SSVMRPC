@@ -41,7 +41,7 @@ rustup update && cargo update
 Add rocket dependency to Cargo.toml
 ```
 [dependencies]
-serde_json = "1.0"
+serde_json = { git = "https://github.com/serde-rs/json" }
 ssvm_container = { git = "https://github.com/second-state/SSVMContainer" }
 rocket = { git = "https://github.com/SergioBenitez/Rocket" }
 ```
