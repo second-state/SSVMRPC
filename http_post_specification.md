@@ -58,7 +58,8 @@ http://ip_address:8000/destroy_wasm_application
 	"response": {
 		"status": "success",
 		"application": {
-			"uuid": "0x1234"
+			"storage": "file_system", // "file_system" or "leveldb"
+			"uuid": "uuid"
 		}
 	}
 }
@@ -142,7 +143,8 @@ http://ip_address:8000/destroy_ewasm_application
 	"response": {
 		"status": "success",
 		"application": {
-			"uuid": "0x1234"
+			"storage": "file_system", // "file_system" or "leveldb"
+			"uuid": "uuid"
 		}
 	}
 }
