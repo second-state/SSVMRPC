@@ -73,6 +73,9 @@ fn deploy_ewasm_application(bytes_vec: Data) -> content::Json<String> {
         // Get bytecode
         let bytecode_wasm = &v["request"]["application"]["bytecode"].to_string();
         println!("Application bytecode: {:?}", bytecode_wasm);
+        // Application name
+        let application_name = &v["request"]["application"]["name"].to_string();
+        println!("Application name: {:?}", application_name);
         // Evaluate the storage options
         if application_storage.to_string() == "null" || application_storage == "file_system" {
             let fs = ssvm_container::storage::file_system::FileSystem::init();
@@ -87,6 +90,7 @@ fn deploy_ewasm_application(bytes_vec: Data) -> content::Json<String> {
             let uuid = ssvm_container::storage::file_system::FileSystem::create_application(
                 &fs,
                 &bytecode_wasm,
+                &application_name,
             );
             println!("Success");
             content::Json(uuid)
