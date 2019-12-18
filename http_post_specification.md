@@ -20,7 +20,8 @@ http://ip_address:8000/deploy_wasm_application
 	"request": {
 		"application": {
 			"storage": "file_system", // "file_system" or "leveldb"
-			"bytecode": "0x0"
+			"bytecode": "0x0",
+			"name": "Application 1"
 		}
 	}
 }
