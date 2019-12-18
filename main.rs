@@ -18,16 +18,19 @@ fn deploy_ewasm_application(bytes_vec: Data) -> content::Json<String> {
         let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
         let v: Value = serde_json::from_str(string_text).unwrap();
         // Get storage option
-        let application_storage = &v["request"]["application"]["storage"];
+        let application_storage = &v["request"]["application"]["storage"].as_str();
         println!("Application storage: {:?}", application_storage);
         // Get bytecode
-        let bytecode_wasm = &v["request"]["application"]["bytecode"].to_string();
+        let bytecode_wasm = &v["request"]["application"]["bytecode"].as_str();
         println!("Application bytecode: {:?}", bytecode_wasm);
         // Application name
-        let application_name = &v["request"]["application"]["name"].to_string();
+        let application_name = &v["request"]["application"]["name"].as_str();
         println!("Application name: {:?}", application_name);
         // Evaluate the storage options
-        if application_storage.to_string() == "null" || application_storage == "file_system" {
+        //if application_storage.to_owned() == Some("file_system") {
+        if application_storage.to_owned() == None
+            || application_storage.to_owned() == Some(&"file_system".to_owned())
+        {
             let fs = ssvm_container::storage::file_system::FileSystem::init();
 
             println!("Application storage is being set to the default: file_system.");
@@ -39,14 +42,16 @@ fn deploy_ewasm_application(bytes_vec: Data) -> content::Json<String> {
             println!("Success ...");
             let uuid = ssvm_container::storage::file_system::FileSystem::create_application(
                 &fs,
-                &bytecode_wasm,
-                &application_name,
+                bytecode_wasm.unwrap(),
+                application_name.unwrap(),
             );
             println!("Success");
             content::Json(uuid)
         } else {
             content::Json("{ 'error': 'bad storage option, please check input json' }".to_string())
         }
+
+    //content::Json("{ 'test': 'test' }".to_string())
     } else {
         content::Json("{ 'error': 'bad input' }".to_string())
     }
@@ -101,16 +106,17 @@ fn deploy_wasm_application(bytes_vec: Data) -> content::Json<String> {
         let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
         let v: Value = serde_json::from_str(string_text).unwrap();
         // Get storage option
-        let application_storage = &v["request"]["application"]["storage"];
+        let application_storage = &v["request"]["application"]["storage"].as_str();
         println!("Application storage: {:?}", application_storage);
         // Get bytecode
-        let bytecode_wasm = &v["request"]["application"]["bytecode"].to_string();
+        let bytecode_wasm = &v["request"]["application"]["bytecode"];
         println!("Application bytecode: {:?}", bytecode_wasm);
         // Application name
-        let application_name = &v["request"]["application"]["name"].to_string();
+        let application_name = &v["request"]["application"]["name"].as_str();
         println!("Application name: {:?}", application_name);
         // Evaluate the storage options
-        if application_storage.to_string() == "null" || application_storage == "file_system" {
+        /*
+        if application_storage == "null" || application_storage == "file_system" {
             let fs = ssvm_container::storage::file_system::FileSystem::init();
             println!("Application storage is being set to the default: file_system.");
             // Initialize the file system storage
@@ -121,11 +127,40 @@ fn deploy_wasm_application(bytes_vec: Data) -> content::Json<String> {
             println!("Success ...");
             let uuid = ssvm_container::storage::file_system::FileSystem::create_application(
                 &fs,
-                &bytecode_wasm,
-                &application_name,
+                bytecode_wasm,
+                application_name,
             );
             println!("Success");
             content::Json(uuid)
+        } else {
+            content::Json("{ 'error': 'bad storage option, please check input json' }".to_string())
+        }*/
+        content::Json("{ 'test': 'test' }".to_string())
+    } else {
+        content::Json("{ 'error': 'bad input' }".to_string())
+    }
+}
+
+/// WebAssembly (Wasm)
+/// Destroy a Wasm application (returns the uuid of the destroyed application)
+/// http://ip_address:8000/destroy_wasm_application
+/*
+#[post("/destroy_wasm_application", data = "<bytes_vec>")]
+fn destroy_wasm_application(bytes_vec: Data) -> content::Json<String>{
+    if bytes_vec.peek_complete() {
+        // Parse incoming JSON
+        let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
+        let v: Value = serde_json::from_str(string_text).unwrap();
+        // Get storage option
+        let application_storage = &v["request"]["application"]["storage"].as_str();
+        let application_uuid = &v["request"]["application"]["uuid"].as_str();
+        if application_storage.to_string() == "null" || application_storage == "file_system" {
+            let fs = ssvm_container::storage::file_system::FileSystem::init();
+            let response = ssvm_container::storage::file_system::FileSystem::delete_application(
+                &fs,
+                application_uuid,
+            );
+            content::Json(response)
         } else {
             content::Json("{ 'error': 'bad storage option, please check input json' }".to_string())
         }
@@ -133,20 +168,8 @@ fn deploy_wasm_application(bytes_vec: Data) -> content::Json<String> {
         content::Json("{ 'error': 'bad input' }".to_string())
     }
 }
+*/
 /*
-/// WebAssembly (Wasm)
-/// Destroy a Wasm application (returns the uuid of the destroyed application)
-/// http://ip_address:8000/destroy_wasm_application
-#[post("/destroy_wasm_application", data = "<bytes_vec>")]
-fn destroy_wasm_application(bytes_vec: Data) -> content::Json<&'static str> {
-    if bytes_vec.peek_complete() {
-        let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
-        let v: Value = serde_json::from_str(string_text).unwrap();
-        println!("Application: {:?}", v["application"]);
-    }
-    content::Json("{'response':'success'}")
-}
-
 /// WebAssembly (Wasm)
 /// Execute a Wasm application's function
 /// http://ip_address:8000/execute_wasm_function
