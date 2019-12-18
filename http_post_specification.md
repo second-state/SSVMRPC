@@ -28,12 +28,13 @@ http://ip_address:8000/deploy_wasm_application
 ```
 ```
 {
-	"response": {
-		"status": "success",
-		"application": {
-			"uuid": "0x1234"
-		}
-	}
+    "response": {
+        "application": {
+            "name": "Application 1",
+            "uuid": "57f34cba-d4d8-41a9-a933-ecbe7103d2a1"
+        },
+        "status": "success"
+    }
 }
 ```
 ## Destroy WebAssembly(Wasm) application instance
@@ -103,19 +104,21 @@ http://ip_address:8000/deploy_ewasm_application
 	"request": {
 		"application": {
 			"storage": "file_system", // "file_system" or "leveldb"
-			"bytecode": "0x0"
+			"bytecode": "0x0",
+			"name": "Application 1"
 		}
 	}
 }
 ```
 ```
 {
-	"response": {
-		"status": "success",
-		"application": {
-			"uuid": "0x1234"
-		}
-	}
+    "response": {
+        "application": {
+            "name": "Application 1",
+            "uuid": "57f34cba-d4d8-41a9-a933-ecbe7103d2a1"
+        },
+        "status": "success"
+    }
 }
 ```
 ## Destroy an Ethereum flavoured WebAssembly(Ewasm) application instance
