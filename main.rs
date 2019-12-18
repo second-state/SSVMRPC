@@ -90,20 +90,50 @@ fn execute_ewasm_function_adhoc(bytes_vec: Data) -> content::Json<&'static str> 
     }
     content::Json("{'response':'success'}")
 }
-
+*/
 /// WebAssembly (Wasm)
 /// Deploy a Wasm application (returns a uuid for future reference)
 /// http://ip_address:8000/deploy_wasm_application
 #[post("/deploy_wasm_application", data = "<bytes_vec>")]
-fn deploy_wasm_application(bytes_vec: Data) -> content::Json<&'static str> {
+fn deploy_wasm_application(bytes_vec: Data) -> content::Json<String> {
     if bytes_vec.peek_complete() {
+        // Parse incoming JSON
         let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
         let v: Value = serde_json::from_str(string_text).unwrap();
-        println!("Application: {:?}", v["application"]);
+        // Get storage option
+        let application_storage = &v["request"]["application"]["storage"];
+        println!("Application storage: {:?}", application_storage);
+        // Get bytecode
+        let bytecode_wasm = &v["request"]["application"]["bytecode"].to_string();
+        println!("Application bytecode: {:?}", bytecode_wasm);
+        // Application name
+        let application_name = &v["request"]["application"]["name"].to_string();
+        println!("Application name: {:?}", application_name);
+        // Evaluate the storage options
+        if application_storage.to_string() == "null" || application_storage == "file_system" {
+            let fs = ssvm_container::storage::file_system::FileSystem::init();
+            println!("Application storage is being set to the default: file_system.");
+            // Initialize the file system storage
+            println!("Initializing application");
+            //let fs = ssvm_container::storage::file_system::FileSystem::init();
+            println!("Deploying application");
+            // Deploy the application using file_system storage
+            println!("Success ...");
+            let uuid = ssvm_container::storage::file_system::FileSystem::create_application(
+                &fs,
+                &bytecode_wasm,
+                &application_name,
+            );
+            println!("Success");
+            content::Json(uuid)
+        } else {
+            content::Json("{ 'error': 'bad storage option, please check input json' }".to_string())
+        }
+    } else {
+        content::Json("{ 'error': 'bad input' }".to_string())
     }
-    content::Json("{'response':'success'}")
 }
-
+/*
 /// WebAssembly (Wasm)
 /// Destroy a Wasm application (returns the uuid of the destroyed application)
 /// http://ip_address:8000/destroy_wasm_application
@@ -129,11 +159,11 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<&'static str> {
     }
     content::Json("{'response':'success'}")
 }
-*/
 
+*/
 fn main() {
     rocket::ignite()
         //.mount("/", routes![deploy_ewasm_application, destroy_ewasm_application, execute_ewasm_function, execute_ewasm_function_adhoc, deploy_wasm_application, destroy_wasm_application, execute_wasm_function])
-        .mount("/", routes![deploy_ewasm_application])
+        .mount("/", routes![deploy_ewasm_application, deploy_wasm_application])
         .launch();
 }
