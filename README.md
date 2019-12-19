@@ -1,19 +1,16 @@
 # SSVMRPC
 A Remote Procedure Call (RPC) implementation which facilitates both code-deployment and code-execution interactions with SecondState's stateless Virtual Machine (SSVM)
 
+# Try our ready-made demo now
+If you would like to quickly deploy your Wasm binary `.wasm` file and then execute some of its functions using nothing but Javascript or a Curl command, please go to the [usage section of this page]().
+
+# Create your own from scratch
+Alternatively, if you want to create your very own environment from scratch, you can read along and follow the instructions which are directly below this paragraph. These instructions will help you set up everything from RPC server, RPCContainer, SSVM complete with SSL, CORS and so forth.
+
 ## Design overview
 ![ssvmrpc diagram](https://github.com/second-state/SSVMRPC/blob/master/documentation/images/architecture.jpg)
 
-## HTTP POST specification
-The [http_post_specification](https://github.com/second-state/SSVMRPC/blob/master/documentation/specifications/http_post_specification.md) file provides detailed specification for calling SSVMRPC from the web.
-
-## State specification
-The [ssvmrpc_application_state_specification.md](https://github.com/second-state/SSVMRPC/blob/master/documentation/specifications/ssvmrpc_application_state_specification.md) file provides a detailed specification for storing application state.
-
-## Service specification
-The [ssvmrpc_service_specification.md](https://github.com/second-state/SSVMRPC/blob/master/documentation/specifications/ssvmrpc_service_specification.md) file provides a detailed specification for service objects (function to call, arguments to use etc).
-
-## Installing SSVMRPC
+## Creating your own SSVMRPC
 The following instructions will guide you through setting up your SSVMRPC server, which can receive HTTP POST requests from the web and communicate those to the rest of the SSVM ecosystem.
 
 System preparation
@@ -48,7 +45,7 @@ rocket = { git = "https://github.com/SergioBenitez/Rocket" }
 ## Main code
 Create/open the ~/ssvmrpc/src/main.rs file and fill it with the contents of [this raw main.rs file](https://raw.githubusercontent.com/second-state/SSVMRPC/master/rust/main.rs)
 
-Once your ~/ssvmrpc/src/rust/main.rs file has been populated, you can build and deploy the application as follows.
+Once your ~/ssvmrpc/src/main.rs file has been populated, you can build and deploy the application as follows.
 
 ## Deployment
 Build the ssvmrpc application
