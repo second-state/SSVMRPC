@@ -154,11 +154,3 @@ Returns the following result
 ```
 {"response":{"application":{"storage":"file_system","uuid":"1f81f773-2f1d-4632-9765-bdfedb54eb33"},"status":"success"}}
 ```
-
-
-
-### Node.js
-
-```
-#TODO
-```
