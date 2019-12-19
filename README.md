@@ -2,7 +2,7 @@
 A Remote Procedure Call (RPC) implementation which facilitates both code-deployment and code-execution interactions with SecondState's stateless Virtual Machine (SSVM)
 
 # Try our ready-made demo now
-If you would like to quickly deploy your Wasm binary `.wasm` file and then execute some of its functions using nothing but Javascript or a Curl command, please go to the [usage section of this page]().
+If you would like to quickly deploy your Wasm binary `.wasm` file and then execute some of its functions using nothing but Javascript or a Curl command, please go to the [usage section of this page](https://github.com/second-state/SSVMRPC/blob/master/README.md#usage).
 
 # Create your own from scratch
 Alternatively, if you want to create your very own environment from scratch, you can read along and follow the instructions which are directly below this paragraph. These instructions will help you set up everything from RPC server, RPCContainer, SSVM complete with SSL, CORS and so forth.
