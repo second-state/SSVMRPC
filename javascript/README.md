@@ -2,7 +2,7 @@
 
 A mechanism to deploy and execute WebAssembly(Wasm) code on secondstate.io's stateless stack-based virtual machine, located at [github.com/second-state/SSVM](https://github.com/second-state/SSVM). This Javascript code, takes JSON request objects and returns JSON response objects. 
 
-This Javascript code is a wrapper around secondstate.io's Wasm as a service (server) application. As you will see below this application can deploy and execute Wasm remotely using only a few lines of code at most. The request that you send is received by a service provider (and server that is running secondstate.io's [SSVMRPC software](https://github.com/second-state/SSVMRPC)). The SSVMRPC software delivers your request object to secondstate.io's Wasm virtual machine(SSVM). Once SSVM has performed the execution a response object is returned to your nodejs environment.
+This Javascript code is a wrapper around secondstate.io's Wasm as a service (server) application. As you will see below this application can deploy and execute Wasm remotely using only a few lines of code at most. The request that you send is received by a service provider (any server that is running secondstate.io's [SSVMRPC software](https://github.com/second-state/SSVMRPC)). The SSVMRPC software delivers your request object to secondstate.io's Wasm virtual machine(SSVM). Once SSVM has performed the execution a response object is returned to your nodejs environment.
 
 To deploy and execute Wasm via Node.js, please see the [nodejs implementation of this code](https://raw.githubusercontent.com/second-state/SSVMRPC/master/nodejs/ssvmrpc.js). The nodejs implementation is also available on [npmjs.com/package/ssvmrpc](https://www.npmjs.com/package/ssvmrpc).
 
