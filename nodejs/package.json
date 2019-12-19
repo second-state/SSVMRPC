@@ -1,6 +1,6 @@
 {
   "name": "ssvmrpc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A mechanism to deploy and execute WebAssembly(Wasm) code on secondstate.io's stateless stack-based virtual machine, located at github.com/second-state/SSVM. This nodejs application, takes JSON request objects and returns JSON response objects. It does this by contacting a valid service provider that is running secondstate.io's Wasm as a service (server software) located at github.com/second-state/SSVMRPC.",
   "main": "ssvmrpc.js",
   "scripts": {
