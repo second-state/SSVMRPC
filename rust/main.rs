@@ -209,6 +209,16 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
         // Application uuid
         let application_uuid = &v["request"]["application"]["uuid"].as_str();
         println!("Application name: {:?}", application_uuid);
+        // Function name
+        let function_name = &v["request"]["function"]["name"].as_str();
+        println!("Function name: {:?}", function_name);
+        // Function arguments
+        let function_arguments = &v["request"]["function"]["arguments"];
+        println!("Function arguments: {:?}", function_arguments);
+        // Wasm modules
+        let modules = &v["request"]["modules"];
+        println!("Wasm modules: {:?}", modules);
+
         // Evaluate the storage options
         //if application_storage.to_owned() == Some("file_system") {
         if application_storage.to_owned() == None
@@ -217,9 +227,12 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
             let fs = ssvm_container::storage::file_system::FileSystem::init();
 
             println!("Application storage is being set to the default: file_system.");
-            let response = ssvm_container::storage::file_system::FileSystem::delete_application(
+            let response = ssvm_container::storage::file_system::FileSystem::execute_wasm_function(
                 &fs,
                 application_uuid.unwrap(),
+                function_name.unwrap(),
+                function_arguments, // As an array of strings
+                modules, // As an arrray of strings
             );
             content::Json(response)
         } else {
@@ -234,6 +247,6 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
 fn main() {
     rocket::ignite()
         //.mount("/", routes![deploy_ewasm_application, destroy_ewasm_application, execute_ewasm_function, execute_ewasm_function_adhoc, deploy_wasm_application, destroy_wasm_application, execute_wasm_function])
-        .mount("/", routes![deploy_ewasm_application, destroy_wasm_application, deploy_wasm_application, destroy_wasm_application])
+        .mount("/", routes![deploy_ewasm_application, destroy_ewasm_application, deploy_wasm_application, destroy_wasm_application, execute_wasm_function])
         .launch();
 }
