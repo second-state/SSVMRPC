@@ -1,0 +1,26 @@
+{
+  "name": "ssvmrpc",
+  "version": "1.0.0",
+  "description": "A mechanism to deploy and execute WebAssembly(Wasm) code on secondstate.io's stateless stack-based virtual machine, located at github.com/second-state/SSVM. This nodejs application, takes JSON request objects and returns JSON response objects. It does this by contacting a valid service provider that is running secondstate.io's Wasm as a service (server software) located at github.com/second-state/SSVMRPC.",
+  "main": "ssvmrpc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/second-state/SSVMRPC.git"
+  },
+  "keywords": [
+    "Wasm",
+    "WebAssembly",
+    "Ethereum",
+    "SecondState",
+    "RPC"
+  ],
+  "author": "@tpmccallum",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/second-state/SSVMRPC/issues"
+  },
+  "homepage": "https://github.com/second-state/SSVMRPC#readme"
+}
