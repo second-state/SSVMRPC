@@ -61,7 +61,7 @@ Start the ssvmrpc server
 
 ## Usage
 
-You can use a command line approach i.e. curl, client-side Javascript or Node.js. As you know, each of these HTTP POST style approaches allow you to pass in a JSON data object. Below are a few arbitrary examples. Please see our [HTTP POST Specification](https://github.com/second-state/SSVMRPC/blob/master/http_post_specification.md) for more details on packing and unpacking request/response objects.
+You can use a command line approach i.e. curl, client-side Javascript or Node.js. As you know, each of these HTTP POST style approaches allow you to pass in a JSON data object. Below are a few arbitrary examples. Please see our [HTTP POST Specification](https://github.com/second-state/SSVMRPC/blob/master/documentation/specifications/http_post_specification.md) for more details on packing and unpacking request/response objects.
 
 ### Curl
 ```
