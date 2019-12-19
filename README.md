@@ -101,8 +101,16 @@ The "destroy" functionality of this service essentially allows you to free up st
 
 ### Curl
 
+The following Curl example
 ```
-curl #TODO
+curl --header "Content-Type: application/json" \
+     --request POST \
+     --data '{"request": {"application": {"storage": "file_system", "bytecode": "0x01234567890","name": "My App"}}}' \
+     http://13.236.207.76:8000/deploy_wasm_application
+```
+Returns the following JSON result
+```
+{"response":{"application":{"name":"My App","uuid":"1f81f773-2f1d-4632-9765-bdfedb54eb33"},"status":"success"}}
 ```
 
 ### Javascript
