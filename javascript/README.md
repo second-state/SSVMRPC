@@ -17,6 +17,9 @@ Once the js is accessible in your web page, the following line of code can be us
 var ssvmrpc = new SSVMRPC('https://ssvmrpc.secondstate.io')
 ```
 Once the provider is set, you can then construct your [valid HTTP POST request](https://github.com/second-state/SSVMRPC/blob/master/documentation/specifications/http_post_specification.md) objects and call the functions (using syntax like `ssvmrpc.deployWasmApplication(data);`) as shown below.
+
+### Request
+Example request object
 ```
 data = {
 	"request": {
@@ -28,7 +31,22 @@ data = {
 }
 
 ```
-
+Example calling code
 ```
 ssvmrpc.deployWasmApplication(data);
 ```
+
+### Response
+The above code will return a JSON response like this
+```
+{
+    "response": {
+        "application": {
+            "name": "My App",
+            "uuid": "1f81f773-2f1d-4632-9765-bdfedb54eb33"
+        },
+        "status": "success"
+    }
+}
+```
+You can find a full list of HTTP POST request and response specifications [here](https://github.com/second-state/SSVMRPC/blob/master/documentation/specifications/http_post_specification.md)
