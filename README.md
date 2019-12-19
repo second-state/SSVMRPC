@@ -134,6 +134,42 @@ data = {
 ssvmrpc.deployWasmApplication(data);
 ```
 
+### Node.
+Install
+```
+npm install ssvmrpc.js
+```
+Import
+```
+let ssvmrpc = require("ssvmrpc.js"); 
+let SSVMRPC = ssvmrpc.SSVMRPC;
+```
+Set provider
+```
+let ssvmRpcInstance = new SSVMRPC('https://ssvmrpc.secondstate.io');
+```
+Then create a data object and call any of the methods
+```
+data = {
+	"request": {
+		"application": {
+			"bytecode": "0x01234567890",
+			"name": "Application Example"
+		}
+	}
+}
+
+```
+```
+ssvmRpcInstance.deployWasmApplication(data)
+.then(function(result) {
+    console.log(result);
+  })
+  .catch(function() {
+    console.log("Error");
+  });
+```
+
 ### Destroy an application
 
 **A word about application state**
