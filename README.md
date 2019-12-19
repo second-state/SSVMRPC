@@ -134,7 +134,7 @@ data = {
 ssvmrpc.deployWasmApplication(data);
 ```
 
-### Node.
+#### Node.
 Install
 ```
 npm install ssvmrpc.js
