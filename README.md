@@ -63,17 +63,56 @@ Start the ssvmrpc server
 
 You can use a command line approach i.e. curl, client-side Javascript or Node.js. As you know, each of these HTTP POST style approaches allow you to pass in a JSON data object. Below are a few arbitrary examples. Please see our [HTTP POST Specification](https://github.com/second-state/SSVMRPC/blob/master/documentation/specifications/http_post_specification.md) for more details on packing and unpacking request/response objects.
 
+### Deploy an application
+
+We would use the same regardless of which HTTP POST approach i.e. Curl vs Javascript etc. Here is an example of the data required to deploy and application. As you can see below, we are essentially just passing in the text of a `.wasm` binary and an arbitrary `name` for your new application.
+
+```
+{
+	"request": {
+		"application": {
+			"bytecode": "0x01234567890",
+			"name": "Application Example"
+		}
+	}
+}
+```
+
+The response from the above request will provide us with a unique identifier for our application. As you can see below i.e. the `response->application->uuid` key which has a value of `f59516c8-44af-454a-bfec-3d21a8559290`. This uuid must be saved/stored somewhere on your calling application. It is essential for further interaction with your newly deployed application. This uuid allows you to identify your application, when performing execution of the functions that reside in your Wasm application.
+
+```
+{
+    "response": {
+        "application": {
+            "name": "Application Example",
+            "uuid": "f59516c8-44af-454a-bfec-3d21a8559290"
+        },
+        "status": "success"
+    }
+}
+```
+
+### Destroy an application
+
+**A word about application state**
+This system allows you to deploy a `.wasm` file and call its functions, as a service. Whilst the actual execution of the Wasm code is performed in a stateless stack-based Virtual Machine (VM) called [SSVM](https://github.com/second-state/SSVM), this system does actually provide state. The default storage mechanism stores all information and activity [on disk](https://github.com/second-state/SSVMContainer#file-system). Future versions will use leveldb etc.
+
+The "destroy" functionality of this service essentially allows you to free up storage.
+
 ### Curl
+
 ```
 curl #TODO
 ```
 
 ### Javascript
+
 ```
 #TODO
 ```
 
 ### Node.js
+
 ```
 #TODO
 ```
