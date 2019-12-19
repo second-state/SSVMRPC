@@ -105,7 +105,34 @@ The response from the above request will provide us with a unique identifier for
 }
 ```
 
-The uuid is essential for further interaction with your newly deployed application. This uuid allows you to identify your application, when performing execution of the functions that reside in your Wasm application. Let's take a look at how we would pass in our uuid. The next example shows how to pass in a uuid to remove that particular application from the system.
+The uuid is essential for further interaction with your newly deployed application. This uuid allows you to identify your application, when performing execution of the functions that reside in your Wasm application.
+
+#### Javascript
+
+To deploy and execute Wasm via Javascript, you will first need to fetch the [raw ssvmrpc.js file](https://raw.githubusercontent.com/second-state/SSVMRPC/master/javascript/ssvmrpc.js). Then reference it in your HTML file like this.
+```
+ <script src="/myJavascriptFiles/ssvmrpc.js"></script>
+ ```
+Once the js is accessible in your web page, the following line of code can be used to initialize an instance of the SSVMRPC. This line of code allows you to set the provider i.e. the SSVMRPC server that you are trying to contact.
+```
+var ssvmrpc = new SSVMRPC('https://ssvmrpc.secondstate.io')
+```
+Once the provider is set, you can then construct your [valid HTTP POST request](https://github.com/second-state/SSVMRPC/blob/master/documentation/specifications/http_post_specification.md) objects and call the functions (using syntax like `ssvmrpc.deployWasmApplication(data);`) as shown below.
+```
+data = {
+	"request": {
+		"application": {
+			"bytecode": "0x01234567890",
+			"name": "Application Example"
+		}
+	}
+}
+
+```
+
+```
+ssvmrpc.deployWasmApplication(data);
+```
 
 ### Destroy an application
 
@@ -128,33 +155,7 @@ Returns the following result
 {"response":{"application":{"storage":"file_system","uuid":"1f81f773-2f1d-4632-9765-bdfedb54eb33"},"status":"success"}}
 ```
 
-### Javascript
 
-First, fetch the [raw ssvmrpc.js file](https://raw.githubusercontent.com/second-state/SSVMRPC/master/javascript/ssvmrpc.js). 
-Then reference it in your HTML file like this.
-```
- <script src="/myJavascriptFiles/ssvmrpc.js"></script>
- ```
-The following line of code will initialize an instance of the SSVMRPC. It allows you to set the provider i.e. the SSVMRPC server that you are trying to contact.
-```
-var ssvmrpc = new SSVMRPC('https://ssvmrpc.secondstate.io')
-```
-Once the provider is set, you can construct your [valid HTTP POST request](https://github.com/second-state/SSVMRPC/blob/master/documentation/specifications/http_post_specification.md) objects and call the functions (using syntax like `ssvmrpc.deployWasmApplication(data);`) as shown below.
-```
-data = {
-	"request": {
-		"application": {
-			"bytecode": "0x01234567890",
-			"name": "Application Example"
-		}
-	}
-}
-
-```
-
-```
-ssvmrpc.deployWasmApplication(data);
-```
 
 ### Node.js
 
