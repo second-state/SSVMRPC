@@ -65,7 +65,7 @@ You can use a command line approach i.e. curl, client-side Javascript or Node.js
 
 ### Deploy an application
 
-We would use the same regardless of which HTTP POST approach i.e. Curl vs Javascript etc. Here is an example of the data required to deploy and application. As you can see below, we are essentially just passing in the text of a `.wasm` binary and an arbitrary `name` for your new application.
+We would use the same request data, regardless of which HTTP POST approach we used i.e. Curl vs Javascript etc. Here is an example of the data required to deploy and application. As you can see below, we are essentially just passing in the text of a `.wasm` binary and an arbitrary `name` for your new application.
 
 ```
 {
@@ -77,20 +77,35 @@ We would use the same regardless of which HTTP POST approach i.e. Curl vs Javasc
 	}
 }
 ```
+#### Curl
 
-The response from the above request will provide us with a unique identifier for our application. As you can see below i.e. the `response->application->uuid` key which has a value of `f59516c8-44af-454a-bfec-3d21a8559290`. This uuid must be saved/stored somewhere on your calling application. It is essential for further interaction with your newly deployed application. This uuid allows you to identify your application, when performing execution of the functions that reside in your Wasm application.
+The following Curl command
+```
+curl --header "Content-Type: application/json" \
+     --request POST \
+     --data '{"request": {"application": {"storage": "file_system", "bytecode": "0x01234567890","name": "My App"}}}' \
+     http://13.236.207.76:8000/deploy_wasm_application
+```
+Returns the following JSON result
+```
+{"response":{"application":{"name":"My App","uuid":"1f81f773-2f1d-4632-9765-bdfedb54eb33"},"status":"success"}}
+```
+
+The response from the above request will provide us with a unique identifier for our application. As you can see below i.e. the `response->application->uuid` key has a value of `1f81f773-2f1d-4632-9765-bdfedb54eb33`. **Note: This uuid must be saved/stored somewhere on your calling application.** 
 
 ```
 {
     "response": {
         "application": {
-            "name": "Application Example",
-            "uuid": "f59516c8-44af-454a-bfec-3d21a8559290"
+            "name": "My App",
+            "uuid": "1f81f773-2f1d-4632-9765-bdfedb54eb33"
         },
         "status": "success"
     }
 }
 ```
+
+The uuid is essential for further interaction with your newly deployed application. This uuid allows you to identify your application, when performing execution of the functions that reside in your Wasm application. Let's take a look at how we would pass in our uuid. The next example shows how to pass in a uuid to remove that particular application from the system.
 
 ### Destroy an application
 
@@ -104,13 +119,13 @@ The "destroy" functionality of this service essentially allows you to free up st
 The following Curl example
 ```
 curl --header "Content-Type: application/json" \
-     --request POST \
-     --data '{"request": {"application": {"storage": "file_system", "bytecode": "0x01234567890","name": "My App"}}}' \
-     http://13.236.207.76:8000/deploy_wasm_application
+  --request POST \
+  --data '{"request": {"application": {"storage": "file_system", "uuid": "1f81f773-2f1d-4632-9765-bdfedb54eb33"}}}' \
+  http://13.236.207.76:8000/destroy_wasm_application
 ```
-Returns the following JSON result
+Returns the following result
 ```
-{"response":{"application":{"name":"My App","uuid":"1f81f773-2f1d-4632-9765-bdfedb54eb33"},"status":"success"}}
+{"response":{"application":{"storage":"file_system","uuid":"1f81f773-2f1d-4632-9765-bdfedb54eb33"},"status":"success"}}
 ```
 
 ### Javascript
