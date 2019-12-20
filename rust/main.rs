@@ -213,12 +213,12 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
         let function_name = &v["request"]["function"]["name"].as_str();
         println!("Function name: {:?}", function_name);
         // Function arguments
-        let function_arguments = &v["request"]["function"]["arguments"];
+        let mut function_arguments = &v["request"]["function"]["arguments"];
         println!("Function arguments: {:?}", function_arguments);
         // Turn the list of arguments into a Vector so that we can pass this as part of the agrument
         //let args = function_arguments.iter().map(|&s| s.into()).collect();
         // Wasm modules
-        let modules = &v["request"]["modules"];
+        let mut modules = &v["request"]["modules"];
         println!("Wasm modules: {:?}", modules);
         // Turn the list of modules into a Vector so that we can pass this as part of the agrument
         //let mods = modules.iter().map(|&s| s.into()).collect();
