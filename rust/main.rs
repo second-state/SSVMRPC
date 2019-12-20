@@ -236,8 +236,8 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
                 &fs,
                 application_uuid.unwrap(),
                 function_name.unwrap(),
-                &function_arguments, // As a vector of strings
-                &modules, // As a vector of strings
+                function_arguments, // As a vector of strings
+                modules, // As a vector of strings
             );
             content::Json(response)
             
