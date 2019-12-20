@@ -61,7 +61,7 @@ fn deploy_ewasm_application(bytes_vec: Data) -> content::Json<String> {
 /// Destroy a stored Ewasm application instance (returns the uuid of the destroyed application)
 /// http://ip_address:8000/destroy_ewasm_application
 #[post("/destroy_ewasm_application", data = "<bytes_vec>")]
-fn destroy_ewasm_application(bytes_vec: Data) -> content::Json<&'static str> {
+fn destroy_ewasm_application(bytes_vec: Data) -> content::Json<String> {
     if bytes_vec.peek_complete() {
         // Parse incoming JSON
         let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
