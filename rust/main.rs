@@ -231,7 +231,7 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
             let fs = ssvm_container::storage::file_system::FileSystem::init();
 
             println!("Application storage is being set to the default: file_system.");
-            /*
+            
             let response = ssvm_container::storage::file_system::FileSystem::execute_wasm_function(
                 &fs,
                 application_uuid.unwrap(),
@@ -240,8 +240,8 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
                 &mods, // As a vector of strings
             );
             content::Json(response)
-            */
-            content::Json("{ 'debug': 'debug' }".to_string())
+            
+            //content::Json("{ 'debug': 'debug' }".to_string())
         } else {
             content::Json("{ 'error': 'bad storage option, please check input json' }".to_string())
         }
