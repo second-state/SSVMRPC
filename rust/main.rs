@@ -92,21 +92,58 @@ fn destroy_ewasm_application(bytes_vec: Data) -> content::Json<String> {
         content::Json("{ 'error': 'bad input' }".to_string())
     }
 }
-/*
+
 /// Ethereum WebAssembly (Ewasm)
 /// Execute an Ewasm application's function
 /// http://ip_address:8000/execute_ewasm_function
 #[post("/execute_ewasm_function", data = "<bytes_vec>")]
 fn execute_ewasm_function(bytes_vec: Data) -> content::Json<&'static str> {
     if bytes_vec.peek_complete() {
+        // Parse incoming JSON
         let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
         let v: Value = serde_json::from_str(string_text).unwrap();
-        println!("Application: {:?}", v["application"]["more_keys"]);
-    }
-    content::Json("{'response':'success'}")
-}
+        // Get storage option
+        let application_storage = &v["request"]["application"]["storage"].as_str();
+        println!("Application storage: {:?}", application_storage);
+        // Application uuid
+        let application_uuid = &v["request"]["application"]["uuid"].as_str();
+        println!("Application name: {:?}", application_uuid);
+        // Function name
+        let function_name = &v["request"]["function"]["name"].as_str();
+        println!("Function name: {:?}", function_name);
+        // Function arguments
+        let function_arguments = &v["request"]["function"]["arguments"];
+        println!("Function arguments: {:?}", function_arguments);
+        // Wasm modules
+        let modules = &v["request"]["modules"];
+        println!("Wasm modules: {:?}", modules);
 
-*/
+        // Evaluate the storage options
+        //if application_storage.to_owned() == Some("file_system") {
+        if application_storage.to_owned() == None
+            || application_storage.to_owned() == Some(&"file_system".to_owned())
+        {
+            let fs = ssvm_container::storage::file_system::FileSystem::init();
+
+            println!("Application storage is being set to the default: file_system.");
+            
+            let response = ssvm_container::storage::file_system::FileSystem::execute_wasm_function(
+                &fs,
+                application_uuid.unwrap(),
+                function_name.unwrap(),
+                function_arguments, 
+                modules,
+            );
+            content::Json(response)
+            
+            //content::Json("{ 'debug': 'debug' }".to_string())
+        } else {
+            content::Json("{ 'error': 'bad storage option, please check input json' }".to_string())
+        }
+    } else {
+        content::Json("{ 'error': 'bad input' }".to_string())
+    }
+}
 /// WebAssembly (Wasm)
 /// Deploy a Wasm application (returns a uuid for future reference)
 /// http://ip_address:8000/deploy_wasm_application
