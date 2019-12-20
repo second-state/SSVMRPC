@@ -84,12 +84,12 @@ fn destroy_ewasm_application(bytes_vec: Data) -> content::Json<String> {
                 &fs,
                 application_uuid.unwrap(),
             );
-            content::Json(&response)
+            content::Json(response)
         } else {
-            content::Json(&"{ 'error': 'bad storage option, please check input json' }".to_string())
+            content::Json("{ 'error': 'bad storage option, please check input json' }".to_string())
         }
     } else {
-        content::Json(&"{ 'error': 'bad input' }".to_string())
+        content::Json("{ 'error': 'bad input' }".to_string())
     }
 }
 /*
