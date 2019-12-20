@@ -111,17 +111,7 @@ http://ip_address:8000/deploy_ewasm_application
 	}
 }
 ```
-```
-{
-    "response": {
-        "application": {
-            "name": "Application 1",
-            "uuid": "57f34cba-d4d8-41a9-a933-ecbe7103d2a1"
-        },
-        "status": "success"
-    }
-}
-```
+
 ## Destroy an Ethereum flavoured WebAssembly(Ewasm) application instance
 
 ```
@@ -159,18 +149,37 @@ http://ip_address:8000/execute_ewasm_function
 {
 	"request": {
 		"application": {
-			"storage": "file_system", // "file_system" or "leveldb"
+			"storage": "file_system",
 			"uuid": "0x1234"
 		},
 		"function": {
-			"name": "add", // function name as per wat file 
-			"arguments": [2, 2] // valid arguments of the function, in the correct order
+			"name": "add",
+			"arguments": ["2", "2"],
+			"caller": "0x0",
+			"call_value": "0x0"
 		},
-		"modules": ["ewasm"] // can be blank or list as many modules as required
+		"modules": ["ewasm"],
+		"abi": [{
+			"constant": true,
+			"inputs": [],
+			"name": "data",
+			"payable": false,
+			"type": "function"
+		}]
 	}
 
 }
 ```
+```
+{
+    "response": {
+        "application": {
+            "name": "Application 1",
+            "uuid": "57f34cba-d4d8-41a9-a933-ecbe7103d2a1"
+        },
+        "status": "success"
+    }
+}
 ```
 {
 	"response": {
