@@ -216,12 +216,12 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
         let function_arguments = &v["request"]["function"]["arguments"];
         println!("Function arguments: {:?}", function_arguments);
         // Turn the list of arguments into a Vector so that we can pass this as part of the agrument
-        let args = function_arguments.unwrap.iter().map(|&s| s.into()).collect();
+        //let args = function_arguments.iter().map(|&s| s.into()).collect();
         // Wasm modules
         let modules = &v["request"]["modules"];
         println!("Wasm modules: {:?}", modules);
         // Turn the list of modules into a Vector so that we can pass this as part of the agrument
-        let mods = modules.unwrap.iter().map(|&s| s.into()).collect();
+        //let mods = modules.iter().map(|&s| s.into()).collect();
 
         // Evaluate the storage options
         //if application_storage.to_owned() == Some("file_system") {
@@ -231,6 +231,7 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
             let fs = ssvm_container::storage::file_system::FileSystem::init();
 
             println!("Application storage is being set to the default: file_system.");
+            /*
             let response = ssvm_container::storage::file_system::FileSystem::execute_wasm_function(
                 &fs,
                 application_uuid.unwrap(),
@@ -239,6 +240,8 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
                 &mods, // As a vector of strings
             );
             content::Json(response)
+            */
+            content::Json("{ 'debug': 'debug' }".to_string())
         } else {
             content::Json("{ 'error': 'bad storage option, please check input json' }".to_string())
         }
