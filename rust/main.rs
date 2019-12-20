@@ -84,12 +84,12 @@ fn destroy_ewasm_application(bytes_vec: Data) -> content::Json<&'static str> {
                 &fs,
                 application_uuid.unwrap(),
             );
-            content::Json(response)
+            content::Json(&response)
         } else {
-            content::Json("{ 'error': 'bad storage option, please check input json' }".to_string())
+            content::Json(&"{ 'error': 'bad storage option, please check input json' }".to_string())
         }
     } else {
-        content::Json("{ 'error': 'bad input' }".to_string())
+        content::Json(&"{ 'error': 'bad input' }".to_string())
     }
 }
 /*
@@ -215,9 +215,13 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
         // Function arguments
         let function_arguments = &v["request"]["function"]["arguments"];
         println!("Function arguments: {:?}", function_arguments);
+        // Turn the list of arguments into a Vector so that we can pass this as part of the agrument
+        let args = function_arguments.iter().map(|&s| s.into()).collect();
         // Wasm modules
         let modules = &v["request"]["modules"];
         println!("Wasm modules: {:?}", modules);
+        // Turn the list of modules into a Vector so that we can pass this as part of the agrument
+        let mods = modules.iter().map(|&s| s.into()).collect();
 
         // Evaluate the storage options
         //if application_storage.to_owned() == Some("file_system") {
@@ -231,8 +235,8 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
                 &fs,
                 application_uuid.unwrap(),
                 function_name.unwrap(),
-                function_arguments, // As an array of strings
-                modules, // As an arrray of strings
+                &args, // As a vector of strings
+                &mods, // As a vector of strings
             );
             content::Json(response)
         } else {
