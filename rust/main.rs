@@ -127,7 +127,7 @@ fn execute_ewasm_function(bytes_vec: Data) -> content::Json<&'static str> {
 
             println!("Application storage is being set to the default: file_system.");
             
-            let response = ssvm_container::storage::file_system::FileSystem::execute_wasm_function(
+            let response = ssvm_container::storage::file_system::FileSystem::execute_ewasm_function(
                 &fs,
                 application_uuid.unwrap(),
                 function_name.unwrap(),
