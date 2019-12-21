@@ -97,7 +97,7 @@ fn destroy_ewasm_application(bytes_vec: Data) -> content::Json<String> {
 /// Execute an Ewasm application's function
 /// http://ip_address:8000/execute_ewasm_function
 #[post("/execute_ewasm_function", data = "<bytes_vec>")]
-fn execute_ewasm_function(bytes_vec: Data) -> content::Json<&'static str> {
+fn execute_ewasm_function(bytes_vec: Data) -> content::Json<String> {
     if bytes_vec.peek_complete() {
         // Parse incoming JSON
         let string_text = str::from_utf8(&bytes_vec.peek()).unwrap();
