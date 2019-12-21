@@ -50,8 +50,8 @@ The following data object provides the command line call with the appropriate ar
 ```json
 {
     // Debugging Info for Rust Container
-    "Service_Name": "ERC20",  // A string
-    "UUID": "0x12345678",  // 64 bits unsigned integer in hex string format
+    "service_name": "da96f8d1-1fd7-4f58-bd00-4fa35d1164e8_1576892508_add",  // We use applicationUuid_timeStamp_functionName so that debugging via the state data is explicit
+    "uuid": "0xccf2cd31a8d64164",  // 64 bits unsigned integer in hex string format
     // Info for SSVM 
     "Modules": ["Rust"],
     "Execution":
