@@ -50,16 +50,16 @@ The following data object provides the command line call with the appropriate ar
 ```json
 {
     // Debugging Info for Rust Container
-    "service_name": "da96f8d1-1fd7-4f58-bd00-4fa35d1164e8_1576892508_add",  // We use applicationUuid_timeStamp_functionName so that debugging via the state data is explicit
+    "service_name": "0xccf2cd31a8d64164_1576892508_add",  // We use applicationUuid_timeStamp_functionName so that debugging via the state data is explicit
     "uuid": "0xccf2cd31a8d64164",  // 64 bits unsigned integer in hex string format
     // Info for SSVM 
-    "Modules": ["Rust"],
-    "Execution":
+    "modules": ["rust"],
+    "execution":
     {
-        "Function_Name": "Mint",  // String format
-        "Argument": ["0x1234", "1000"],  // JSON Array for the function's arugments
+        "function_name": "mint",  // String format
+        "argument": ["0x1234", "1000"],  // JSON Array for the function's arugments
         
-        "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
+        "storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
                         "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},       // Key-value pairs in JSON Object
     }
 }
