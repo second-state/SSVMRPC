@@ -9,17 +9,17 @@ Calling data and return_data must be valid JSON (represent parsable objects)
 ```json
 {
     // Debugging Info for Rust Container
-    "Service_Name": "ERC20",  // A string
-    "UUID": "0x12345678",  // 64 bits unsigned integer in hex string format
+    "service_name": "ERC20",  // A string
+    "uuid": "0x12345678",  // 64 bits unsigned integer in hex string format
     // Info for SSVM 
-    "Modules": ["Ethereum"],
-    "Execution":
+    "modules": ["Ethereum"],
+    "execution":
     {
-        "Function_Name": "Mint",  // String format
-        "Argument": ["0x1234", "1000"],  // JSON Array for the function's arugments
-        "Ethereum": {
-            "Caller": "0x0",  // 20 bytes hex number in string format
-            "Call_Value": "0x0",  // 32 bytes hex number in string format
+        "function_name": "Mint",  // String format
+        "argument": ["0x1234", "1000"],  // JSON Array for the function's arugments
+        "ethereum": {
+            "caller": "0x0",  // 20 bytes hex number in string format
+            "call_value": "0x0",  // 32 bytes hex number in string format
             "abi": [{                 // Smart contract ABI
                 "constant": true,
                 "inputs": [],
@@ -28,7 +28,7 @@ Calling data and return_data must be valid JSON (represent parsable objects)
                 "type": "function"
             }],
         }
-        "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
+        "storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
                         "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},       // Key-value pairs in JSON Object
     }
 }
@@ -81,16 +81,16 @@ Calling data and return_data must be valid JSON (represent parsable objects)
 #### Return object of ethereum smart contract function execution
 ```json
 {
-    "Service Name": "ERC20",  // A string
-    "UUID": "0x12345678",  // 64 bits unsigned integer in hex string format
+    "service_name": "ERC20",  // A string
+    "uuid": "0x12345678",  // 64 bits unsigned integer in hex string format
 
-    "Result":
+    "result":
     {
-        "Status": "Successful",  // Can be "Successful", "Failed"
-        "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
+        "status": "Successful",  // Can be "Successful", "Failed"
+        "storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
                         "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},    // Key-value pairs in JSON Object
-        "Return_Data": [],       // JSON Array
-        "Error_Message": "...",  // String
+        "return_data": [],       // JSON Array
+        "error_message": "...",  // String
     }
 }
 ```
