@@ -49,29 +49,29 @@ The following data object provides the command line call with the appropriate ar
 
 ```json
 {
-    // Debugging Info for Rust Container
-    "service_name": "0xccf2cd31a8d64164_1576892508_add",  // We use applicationUuid_timeStamp_functionName so that debugging via the state data is explicit
-    "uuid": "0xccf2cd31a8d64164",  // 64 bits unsigned integer in hex string format
-    // Info for SSVM 
-    "modules": ["rust"],
-    "execution":
-    {
-        "function_name": "mint",  // String format
-        "argument": ["0x1234", "1000"],  // JSON Array for the function's arugments
-        
-        "storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
-                        "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},       // Key-value pairs in JSON Object
-    }
+        "service_name": "0xccf2cd31a8d64164_1576892508_add",
+        "uuid": "0x0000000012345678",
+        "modules": [
+                "rust"
+        ],
+        "execution": {
+                "function_name": "add",
+                "gas": 100,
+                "argument": [
+                        "0x0000000000000001",
+                        "0x0000000000000001"
+                ]
+        }
 }
 ```
 
 ```shell
-$ SSVM --input_file=/home/johndoe/input.json --output_file=/home/johndoe/output.json --bytecode_file=/home/johndoe/bytecode.wasm
+$ SSVM --input_file=/home/0xccf2cd31a8d64164/1576892508/input.json --output_file=/home/0xccf2cd31a8d64164/1576892508/output.json --wasm_file=/home/0xccf2cd31a8d64164/bytecode.wasm
 ```
 SSVM only has three parameters:
 1. input_file: Put a input JSON file path from SSVMRPC here.
 2. output_file: Put a output JSON file path to SSVMRPC here.
-3. bytecode_file: Put a input JSON file path from SSVMRPC here.
+3. wasm_file: Put a input JSON file path from SSVMRPC here.
 
 ## From VM
 Calling data and return_data must be valid JSON (represent parsable objects)
@@ -98,16 +98,26 @@ Calling data and return_data must be valid JSON (represent parsable objects)
 #### Return object of non-blockchain i.e. Rust function execution
 ```json
 {
-    "Service Name": "ERC20",  // A string
-    "UUID": "0x12345678",  // 64 bits unsigned integer in hex string format
-
-    "Result":
+  "service_name":"0xccf2cd31a8d64164_1576892508_add",
+  "uuid":"0x0000000012345678",
+  "result":
+  {
+    "status":"Succeeded",
+    "error_message":"",
+    "gas":100,
+    "used_gas":6,
+    "vm_snapshot":
     {
-        "Status": "Successful",  // Can be "Successful", "Failed"
-        "Storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
-                        "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},    // Key-value pairs in JSON Object
-        "Return_Data": [],       // JSON Array
-        "Error_Message": "...",  // String
-    }
+      "global":[
+        [0,"0x0000000000100000"],
+        [1,"0x0000000000100000"],
+        [2,"0x0000000000100000"]
+      ],
+      "memory":[
+        [0,"000000000000000000000000000000000900000000000000000000000000000000000000000000000000000000000000"]
+      ]
+    },
+    "return_value":["0x0000000000000002"]
+  }
 }
 ```
