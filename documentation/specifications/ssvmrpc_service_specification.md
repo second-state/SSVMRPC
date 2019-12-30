@@ -27,21 +27,21 @@ Calling data and return_data must be valid JSON (represent parsable objects)
                 "payable": false,
                 "type": "function"
             }],
-        }
+        },
         "storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
-                        "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},       // Key-value pairs in JSON Object
+                    "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},       // Key-value pairs in JSON Object
     }
 }
 ```
 
 ```shell
-$ SSVM --input_file=/home/johndoe/input.json --output_file=/home/johndoe/output.json --bytecode_file=/home/johndoe/bytecode.wasm
+$ SSVM --input_file=/home/johndoe/input.json --output_file=/home/johndoe/output.json --wasm_file=/home/johndoe/bytecode.wasm
 ```
 
 SSVM has only three parameters:
 1. input_file: Put a input JSON file path from SSVMRPC here.
 2. output_file: Put a output JSON file path to SSVMRPC here.
-3. bytecode_file: Put a input JSON file path from SSVMRPC here.
+3. wasm_file: Put a wasm file path to execute here.
 
 #### Execution of non-blockchain Wasm i.e. Rust
 
@@ -60,7 +60,17 @@ The following data object provides the command line call with the appropriate ar
                 "argument": [
                         "0x0000000000000001",
                         "0x0000000000000001"
-                ]
+                ],
+                "vm_snapshot": {
+                    "global" : [
+                        [0, "0x00000000FFFFFFFF"], [1, "0x00000000FFFFFFFF"]
+                        // List: [global_id, value_hex_string(64bit)]
+                    ],  // Global instance
+                    "memory" : [
+                        [0, "00000000"]
+                        // List: [memory_id, memory_dump_hex_string]
+                    ]   // Memory instance
+                } // Dumpped snapshot to restore VM
         }
 }
 ```
@@ -71,7 +81,7 @@ $ SSVM --input_file=/home/0xccf2cd31a8d64164/1576892508/input.json --output_file
 SSVM only has three parameters:
 1. input_file: Put a input JSON file path from SSVMRPC here.
 2. output_file: Put a output JSON file path to SSVMRPC here.
-3. wasm_file: Put a input JSON file path from SSVMRPC here.
+3. wasm_file: Put a wasm file path to execute here.
 
 ## From VM
 Calling data and return_data must be valid JSON (represent parsable objects)
@@ -81,17 +91,16 @@ Calling data and return_data must be valid JSON (represent parsable objects)
 #### Return object of ethereum smart contract function execution
 ```json
 {
-    "service_name": "ERC20",  // A string
-    "uuid": "0x12345678",  // 64 bits unsigned integer in hex string format
-
-    "result":
-    {
-        "status": "Successful",  // Can be "Successful", "Failed"
-        "storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
-                        "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},    // Key-value pairs in JSON Object
-        "return_data": [],       // JSON Array
-        "error_message": "...",  // String
-    }
+  "service_name": "ERC20",  // A string
+  "uuid": "0x12345678",  // 64 bits unsigned integer in hex string format
+  "result":
+  {
+    "status": "Succeeded",  // Can be "Succeeded", "Failed", or "Reverted"
+    "storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
+                "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},    // Key-value pairs in JSON Object
+    "return_data": [],       // JSON Array
+    "error_message": "...",  // String
+  }
 }
 ```
 
