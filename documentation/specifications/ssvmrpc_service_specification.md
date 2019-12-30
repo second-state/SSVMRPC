@@ -16,6 +16,7 @@ Calling data and return_data must be valid JSON (represent parsable objects)
     "execution":
     {
         "function_name": "Mint",  // String format
+        "gas": 100,
         "argument": ["0x1234", "1000"],  // JSON Array for the function's arugments
         "ethereum": {
             "caller": "0x0",  // 20 bytes hex number in string format
@@ -96,6 +97,8 @@ Calling data and return_data must be valid JSON (represent parsable objects)
   "result":
   {
     "status": "Succeeded",  // Can be "Succeeded", "Failed", or "Reverted"
+    "gas":100,
+    "used_gas":6,
     "storage": {"0000000000000000000000000000000000000000000000000000000000000000":"0000000000000000000000000000000000000000000000000000000000000064",
                 "f5b24dcea0e9381721a8c72784d30cfe64c11b4591226269f839d095b3e9cf10":"0000000000000000000000000000000000000000000000000000000000000064"},    // Key-value pairs in JSON Object
     "return_data": [],       // JSON Array
