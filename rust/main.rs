@@ -124,6 +124,8 @@ fn execute_ewasm_function(bytes_vec: Data) -> content::Json<String> {
         //let return_type = &v["request"]["function"]["return_type"].as_str();
         //println!("Return type: {:?}", return_type);
 
+        // Evaluate the storage options
+        //if application_storage.to_owned() == Some("file_system") {
         if application_storage.to_owned() == None
             || application_storage.to_owned() == Some(&"file_system".to_owned())
         {
@@ -162,47 +164,38 @@ fn deploy_wasm_application(bytes_vec: Data) -> content::Json<String> {
         // Get storage option
         let application_storage = &v["request"]["application"]["storage"].as_str();
         println!("Application storage: {:?}", application_storage);
-        // Application uuid
-        let application_uuid = &v["request"]["application"]["uuid"].as_str();
-        println!("Application name: {:?}", application_uuid);
-        // Wasm modules
-        let modules = &v["request"]["modules"];
-        println!("Wasm modules: {:?}", modules);
-        // Function name
-        let function_name = &v["request"]["function"]["name"].as_str();
-        println!("Function name: {:?}", function_name);
-        // Function arguments
-        let function_arguments = &v["request"]["function"]["arguments"];
-        println!("Function arguments: {:?}", function_arguments);
-        // Argument types
-        let argument_types = &v["request"]["function"]["argument_types"];
-        println!("Argument types: {:?}", argument_types);
-        // Return type
-        let return_type = &v["request"]["function"]["return_type"].as_str();
-        println!("Return type: {:?}", return_type);
-
+        // Get bytecode
+        let bytecode_wasm = &v["request"]["application"]["bytecode"].as_str();
+        println!("Application bytecode: {:?}", bytecode_wasm);
+        // Application name
+        let application_name = &v["request"]["application"]["name"].as_str();
+        println!("Application name: {:?}", application_name);
+        // Evaluate the storage options
+        //if application_storage.to_owned() == Some("file_system") {
         if application_storage.to_owned() == None
             || application_storage.to_owned() == Some(&"file_system".to_owned())
         {
             let fs = ssvm_container::storage::file_system::FileSystem::init();
 
             println!("Application storage is being set to the default: file_system.");
-            
-            let response = ssvm_container::storage::file_system::FileSystem::execute_ewasm_function(
+            // Initialize the file system storage
+            println!("Initializing application");
+            //let fs = ssvm_container::storage::file_system::FileSystem::init();
+            println!("Deploying application");
+            // Deploy the application using file_system storage
+            println!("Success ...");
+            let uuid = ssvm_container::storage::file_system::FileSystem::create_application(
                 &fs,
-                application_uuid.unwrap(),
-                modules,
-                function_name.unwrap(),
-                function_arguments,
-                argument_types,
-                return_type.unwrap()
+                bytecode_wasm.unwrap(),
+                application_name.unwrap(),
             );
-            content::Json(response)
-            
-            //content::Json("{ 'debug': 'debug' }".to_string())
+            println!("Success");
+            content::Json(uuid)
         } else {
             content::Json("{ 'error': 'bad storage option, please check input json' }".to_string())
         }
+
+    //content::Json("{ 'test': 'test' }".to_string())
     } else {
         content::Json("{ 'error': 'bad input' }".to_string())
     }
@@ -261,18 +254,22 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
         // Application uuid
         let application_uuid = &v["request"]["application"]["uuid"].as_str();
         println!("Application name: {:?}", application_uuid);
+        // Wasm modules
+        let modules = &v["request"]["modules"];
+        println!("Wasm modules: {:?}", modules);
         // Function name
         let function_name = &v["request"]["function"]["name"].as_str();
         println!("Function name: {:?}", function_name);
         // Function arguments
         let function_arguments = &v["request"]["function"]["arguments"];
         println!("Function arguments: {:?}", function_arguments);
-        // Wasm modules
-        let modules = &v["request"]["modules"];
-        println!("Wasm modules: {:?}", modules);
+        // Argument types
+        let argument_types = &v["request"]["function"]["argument_types"];
+        println!("Argument types: {:?}", argument_types);
+        // Return type
+        let return_type = &v["request"]["function"]["return_type"].as_str();
+        println!("Return type: {:?}", return_type);
 
-        // Evaluate the storage options
-        //if application_storage.to_owned() == Some("file_system") {
         if application_storage.to_owned() == None
             || application_storage.to_owned() == Some(&"file_system".to_owned())
         {
@@ -280,12 +277,14 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
 
             println!("Application storage is being set to the default: file_system.");
             
-            let response = ssvm_container::storage::file_system::FileSystem::execute_wasm_function(
+            let response = ssvm_container::storage::file_system::FileSystem::execute_ewasm_function(
                 &fs,
                 application_uuid.unwrap(),
-                function_name.unwrap(),
-                function_arguments, 
                 modules,
+                function_name.unwrap(),
+                function_arguments,
+                argument_types,
+                return_type.unwrap()
             );
             content::Json(response)
             
