@@ -108,15 +108,21 @@ fn execute_ewasm_function(bytes_vec: Data) -> content::Json<String> {
         // Application uuid
         let application_uuid = &v["request"]["application"]["uuid"].as_str();
         println!("Application name: {:?}", application_uuid);
+        // Wasm modules
+        let modules = &v["request"]["modules"];
+        println!("Wasm modules: {:?}", modules);
         // Function name
         let function_name = &v["request"]["function"]["name"].as_str();
         println!("Function name: {:?}", function_name);
         // Function arguments
         let function_arguments = &v["request"]["function"]["arguments"];
         println!("Function arguments: {:?}", function_arguments);
-        // Wasm modules
-        let modules = &v["request"]["modules"];
-        println!("Wasm modules: {:?}", modules);
+        // Argument types
+        let argument_types = &v["request"]["function"]["argument_types"];
+        println!("Argument types: {:?}", argument_types);
+        // Return type
+        let return_type = &v["request"]["function"]["return_type"].as_str();
+        println!("Return type: {:?}", return_type);
 
         // Evaluate the storage options
         //if application_storage.to_owned() == Some("file_system") {
@@ -130,9 +136,11 @@ fn execute_ewasm_function(bytes_vec: Data) -> content::Json<String> {
             let response = ssvm_container::storage::file_system::FileSystem::execute_ewasm_function(
                 &fs,
                 application_uuid.unwrap(),
-                function_name.unwrap(),
-                function_arguments, 
                 modules,
+                function_name.unwrap(),
+                function_arguments,
+                argument_types,
+                return_type.unwrap()
             );
             content::Json(response)
             
