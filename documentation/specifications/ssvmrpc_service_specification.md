@@ -59,9 +59,11 @@ The following data object provides the command line call with the appropriate ar
                 "function_name": "add",
                 "gas": 100,
                 "argument": [
-                        "0x0000000000000001",
-                        "0x0000000000000001"
+                        "2",
+                        "2"
                 ],
+                "argument_types": ["i32", "i32"], 
+			    "return_type": "i32",
                 "vm_snapshot": {
                     "global" : [
                         [0, "0x00000000FFFFFFFF"], [1, "0x00000000FFFFFFFF"]
