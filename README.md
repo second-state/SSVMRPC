@@ -41,6 +41,11 @@ Add rocket dependency to Cargo.toml
 serde_json = { git = "https://github.com/serde-rs/json" }
 ssvm_container = { git = "https://github.com/second-state/SSVMContainer" }
 rocket = { git = "https://github.com/SergioBenitez/Rocket" }
+
+[dependencies.rocket_contrib]
+version = "0.4.2"
+default-features = false
+features = ["json"]
 ```
 ## Main code
 Create/open the ~/ssvmrpc/src/main.rs file and fill it with the contents of [this raw main.rs file](https://raw.githubusercontent.com/second-state/SSVMRPC/master/rust/main.rs)
@@ -57,6 +62,16 @@ cargo build --release
 Start the ssvmrpc server
 ```
 ./target/release/ssvmrpc
+```
+
+## Using the SecondState VM (SSVM as the execution endpoint)
+
+Download and install SSVM [using these instructions](https://github.com/second-state/SSVM#getting-started)
+
+Set the system PATH variable to include the `ssvm-proxy` executable command i.e.
+
+```
+export PATH=/home/ubuntu/SSVM/build/tools/ssvm-proxy:$PATH
 ```
 
 ## Usage
