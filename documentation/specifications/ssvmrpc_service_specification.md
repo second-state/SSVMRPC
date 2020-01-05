@@ -63,7 +63,7 @@ The following data object provides the command line call with the appropriate ar
                         "2"
                 ],
                 "argument_types": ["i32", "i32"], 
-	        "return_type": "i32",
+                "return_types": ["i32"],
                 "vm_snapshot": {
                     "global" : [
                         [0, "0x00000000FFFFFFFF"], [1, "0x00000000FFFFFFFF"]
