@@ -267,8 +267,9 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
         let argument_types = &v["request"]["function"]["argument_types"];
         println!("Argument types: {:?}", argument_types);
         // Return type
-        let return_type = &v["request"]["function"]["return_type"].as_str();
-        println!("Return type: {:?}", return_type);
+        // We have made this an array of strings in anticipation of Wasm being able to return more than one value
+        let return_types = &v["request"]["function"]["return_types"];
+        println!("Return types: {:?}", return_types);
 
         if application_storage.to_owned() == None
             || application_storage.to_owned() == Some(&"file_system".to_owned())
@@ -284,7 +285,7 @@ fn execute_wasm_function(bytes_vec: Data) -> content::Json<String>{
                 function_name.unwrap(),
                 function_arguments,
                 argument_types,
-                return_type.unwrap()
+                return_types
             );
             content::Json(response)
             
