@@ -92,7 +92,7 @@ fn destroy_ewasm_application(bytes_vec: Data) -> content::Json<String> {
         content::Json("{ 'error': 'bad input' }".to_string())
     }
 }
-
+/*
 /// Ethereum WebAssembly (Ewasm)
 /// Execute an Ewasm application's function
 /// http://ip_address:8000/execute_ewasm_function
@@ -152,6 +152,7 @@ fn execute_ewasm_function(bytes_vec: Data) -> content::Json<String> {
         content::Json("{ 'error': 'bad input' }".to_string())
     }
 }
+*/
 /// WebAssembly (Wasm)
 /// Deploy a Wasm application (returns a uuid for future reference)
 /// http://ip_address:8000/deploy_wasm_application
