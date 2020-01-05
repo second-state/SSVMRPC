@@ -81,7 +81,7 @@ http://ip_address:8000/execute_wasm_function
 			"name": "add", // function name as per wat file 
 			"arguments": [2, 2], // valid arguments of the function, in the correct order
 			"argument_types": ["i32", "i32"], // valid Wasm data types which the function is programmed to receive
-			"return_type": "i32" // valid Wasm data which the function is programmed to return
+			"return_types": ["i32"] // valid Wasm data which the function is programmed to return
 		},
 		"modules": ["wasi-core", "rust"] // can be blank or list as many modules as required
 	}
@@ -158,7 +158,7 @@ http://ip_address:8000/execute_ewasm_function
 			"name": "add",
 			"arguments": ["2", "2"],
 			"argument_types": ["i32", "i32"], // valid Wasm data types which the function is programmed to receive
-			"return_type": "i32" // valid Wasm data type which the function is programmed to return
+			"return_types": ["i32"] // valid Wasm data type which the function is programmed to return
 			"caller": "0x0",
 			"call_value": "0x0"
 		},
