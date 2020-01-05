@@ -79,7 +79,7 @@ http://ip_address:8000/execute_wasm_function
 		},
 		"function": {
 			"name": "add", // function name as per wat file 
-			"arguments": [2, 2], // valid arguments of the function, in the correct order
+			"arguments": ["2", "2"], // String only - these are valid arguments of the function, in the correct order. Their types are defined below in the argument types section
 			"argument_types": ["i32", "i32"], // valid Wasm data types which the function is programmed to receive
 			"return_types": ["i32"] // valid Wasm data which the function is programmed to return
 		},
@@ -156,7 +156,7 @@ http://ip_address:8000/execute_ewasm_function
 		},
 		"function": {
 			"name": "add",
-			"arguments": ["2", "2"],
+			"arguments": ["2", "2"], // String only - these are valid arguments of the function, in the correct order. Their types are defined below in the argument types section
 			"argument_types": ["i32", "i32"], // valid Wasm data types which the function is programmed to receive
 			"return_types": ["i32"] // valid Wasm data type which the function is programmed to return
 			"caller": "0x0",
@@ -208,7 +208,7 @@ http://ip_address:8000/execute_ewasm_function_adhoc
 		},
 		"function": {
 			"name": "add", // function name as per wat file 
-			"arguments": [2, 2] // valid arguments of the function, in the correct order
+			"arguments": ["2", "2"] // // String only - these are valid arguments of the function, in the correct order. Their types are defined below in the argument types section
 		},
 		"modules": ["ewasm"], // can be blank or list as many modules as required
 		"storage": {          // calling code passed in the current state
@@ -223,7 +223,7 @@ http://ip_address:8000/execute_ewasm_function_adhoc
 {
 	"response": {
 		"status": "success",
-		"data": 4,
+		"data": "4",
 		"storage": {          // returns the updated state which can be used to make another call
 			"00000...00000": "00000...00064",
 			"f5b24...9cf10": "00000...00064"
