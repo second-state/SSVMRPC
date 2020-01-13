@@ -1,4 +1,4 @@
-Now that you have created and deployed your Wasm application, you can go ahead and execute one of its public functions.
+Now that you have [created](https://github.com/second-state/SSVMRPC/blob/master/examples/creating_wasm_application.md) and [deployed](https://github.com/second-state/SSVMRPC/blob/master/examples/deploying_wasm_application.md) your Wasm application, you can go ahead and execute one of its public functions.
 
 # Executing an application's function
 
