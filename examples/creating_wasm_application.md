@@ -1,4 +1,4 @@
-This section will show you how to create and deploy your own Wasm executable on the SecondState infrastructure. For this application creation & deployment demonstration, we will use Rust on an Ubuntu OS.
+This section will show you how to create and [deploy](https://github.com/second-state/SSVMRPC/blob/master/examples/deploying_wasm_application.md) your own Wasm executable on the SecondState infrastructure. It will also show you how to [execute one of your application's public functions](https://github.com/second-state/SSVMRPC/blob/master/examples/execute_wasm_applications_function.md). For this application creation & deployment demonstration, we will use Rust on an Ubuntu OS.
 
 # Install Rust
 
@@ -105,4 +105,4 @@ The overall result of these conversions sees the Wasm executable size go from th
 0061736d0100000001070160027f7f017f030201000405017001010105030100100619037f01418080c0000b7f00418080c0000b7f00418080c0000b073704066d656d6f727902000a5f5f646174615f656e6403010b5f5f686561705f6261736503020f6164645f74776f5f6e756d6265727300000a09010700200120006a0b
 ```
 
-Next you can [deploy your application](https://github.com/second-state/SSVMRPC/blob/master/examples/deploying_wasm_application.md) 
+Next you can [deploy your application](https://github.com/second-state/SSVMRPC/blob/master/examples/deploying_wasm_application.md).
