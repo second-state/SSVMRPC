@@ -1,4 +1,4 @@
-Once you have created your application, you can deploy it as follows.
+Once you have [created your application](https://github.com/second-state/SSVMRPC/blob/master/examples/creating_wasm_application.md), you can deploy it as follows.
 
 
 # Deploying your application
@@ -47,6 +47,6 @@ Again, note the 0x, that we manually added, at the start of the bytecode!
 
 When the application deploys, it will return a unique identifier i.e. **0xa9d57ac0f5046512** . You will need to remember/save this identifier for when you are calling an application's function, in the future.
 
-Now that you have successfully deployed your application, you can go ahead and execute your application's public functions
+Now that you have successfully deployed your application, you can go ahead and [execute your application's public functions](https://github.com/second-state/SSVMRPC/blob/master/examples/execute_wasm_applications_function.md)
 
 
