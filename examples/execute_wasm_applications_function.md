@@ -16,7 +16,7 @@ Don't be overwhelmed by the `--data` below. It is actually pretty straight forwa
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"request": {"application": {"storage": "file_system", "uuid": "0xa9d57ac0f5046512"},"function": {"name": "add_two_numbers", "arguments": ["2", "2"],"argument_types": ["i32", "i32"], "return_types": ["i32"]},"modules": ["rust"] }}' \
-  http://13.54.168.1:8000/execute_wasm_function
+  http://13.54.168.1:8080/execute_wasm_function
   ```
   
 ## Executing using a GUI - Postman JSON example
