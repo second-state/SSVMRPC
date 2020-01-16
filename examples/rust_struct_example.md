@@ -1,3 +1,5 @@
+This is an example of using Rust struct and impl. This example is code only (with request response syntax) It does not go into details about setting up Rust programming language and/or any compiler configuration etc. Please see this [other example](https://github.com/second-state/SSVMRPC/blob/master/examples/creating_wasm_application.md#set-wasm-specific-system-configuration) which explains exactly how to perform specific wasm configuration etc.
+
 # Rust
 
 ```
