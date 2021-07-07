@@ -1,3 +1,10 @@
+# Deprecated
+
+We have a new and exciting product called WasmEdge (which offers a wide range of functionality and also performance and safety). This SSVMRPC was providing access to our Wasm runtime using Rust and Rocket. However, because WasmEdge can be packaged up and used as a NodeJS Add-On, we decided to provide access to our Wasm runtime using NodeJS. Please use [wasm-joey](https://github.com/second-state/wasm-joey) instead of this SSVMRPC.
+
+Here is [a tutorial](https://www.secondstate.io/articles/getting-started-with-function-as-a-service-in-rust/) which shows you how to get started with wasm-joey.
+Here is [a YouTube Video](https://www.youtube.com/watch?v=SF-6OARg9WM) of how to use wasm-joey.
+
 # SSVMRPC
 A Remote Procedure Call (RPC) implementation which facilitates both code-deployment and code-execution interactions with SecondState's stateless Virtual Machine (SSVM)
 
